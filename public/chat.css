@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  /* border: 1px red solid; */
+  position: relative;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: rgb(24, 26, 27);
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.header-nav {
+  position: relative;
+  height: 60px;
+  border-bottom: 1px rgba(0, 0, 0, 0.216) solid;
+  box-sizing: border-box;
+}
+.header {
+  position: relative;
+  width: 75%;
+  margin: 0 auto;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.header a,
+.header div {
+  box-sizing: border-box;
+  margin: 5px 0;
+}
+
+/* 1 */
+.logo {
+  width: 11.5%;
+  height: 92%;
+}
+.logo:hover {
+  cursor: pointer;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 2 */
+.search {
+  width: 30%;
+  border: 1px solid rgb(61, 58, 58);
+  border-radius: 30px;
+  padding: 5px 5px 5px 15px;
+  box-sizing: border-box;
+}
+.search input {
+  height: 100%;
+  width: calc(100% - 40px);
+  background-color: rgb(24, 26, 27);
+  border: none;
+  outline: none;
+  font-size: 18px;
+  color: white;
+}
+.search button {
+  height: 100%;
+  width: 30px;
+  border: none;
+  background-color: rgb(24, 26, 27);
+}
+.search button i {
+  color: rgba(21, 21, 22, 0.329);
+}
+.search button:hover {
+  cursor: pointer;
+}
+.login {
+  width: 15%;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+.tool {
+  width: 25%;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* 3 */
+.tool div,
+.tool a {
+  position: relative;
+  padding: 0 5px;
+  text-decoration: none;
+  color: white;
+}
+.tool div:hover,
+.tool a:hover {
+  cursor: pointer;
+}
+.upload-tool {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+  height: 100%;
+  line-height: 35px;
+  text-align: center;
+  border: 1px solid rgb(55, 53, 53);
+}
+.upload-tool:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.599);
+}
+.upload-tool i {
+  position: relative;
+  top: 17px;
+}
+.chat-tool,
+.message-tool {
+  padding: 10px !important;
+  text-align: center;
+  width: 20%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.user-profile-tool {
+  padding: 0 !important;
+  position: relative;
+  width: 40px;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user-profile-tool img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.user-profile-tool:hover .box-profile {
+  display: block;
+}
+.box-profile {
+  position: absolute;
+  right: 0;
+  border: 1px solid rgb(36, 36, 36);
+  box-sizing: border-box;
+  width: 250px;
+  z-index: 500;
+  top: 60px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 5px black;
+  background-color: rgb(24, 26, 27);
+}
+.box-profile div a {
+  padding: 0 20px;
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  color: white;
+}
+.box-profile div:hover {
+  background-color: rgb(60, 58, 58);
+  cursor: pointer;
+}
+.box-profile div a i {
+  position: relative;
+  top: 12px;
+  margin-right: 10px;
+}
+.switch {
+  position: relative;
+  height: 25px;
+  width: 25%;
+  left: 25%;
+  top: 10px;
+  appearance: none;
+  background: #83b8ff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.switch::before {
+  content: "";
+  left: 2px;
+  top: 2px;
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  background: #efe2bf;
+  z-index: 600;
+}
+.switch:checked {
+  background: #749dd6;
+}
+.switch:checked:before {
+  left: 29px;
+}
+
+/* Content */
+.content {
+  position: relative;
+  /* border: 1px solid red; */
+  background-color: rgba(28, 30, 31, 1);
+  height: calc(100vh - 60px);
+  padding: 16px 24px 10px 20px;
+}
+.content i {
+  position: absolute;
+  top: 40px;
+  left: 150px;
+}
+.message-content {
+  /* border: 1px solid red; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.message-left {
+  background-color: rgb(24, 26, 27);
+  border-radius: 10px;
+  width: 24%;
+  /* border: 1px solid blue; */
+  box-sizing: border-box;
+}
+.message-right {
+  background-color: rgb(24, 26, 27);
+  border-radius: 10px;
+  width: 52%;
+  /* border: 1px solid blue; */
+  box-sizing: border-box;
+  margin-left: 16px;
+}
+.list-title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+.list-title i {
+  position: absolute;
+  top: 15px;
+  left: 86%;
+  display: flex;
+  justify-content: space-between;
+}
+.list-user-chat {
+  padding: 0 20px;
+  margin: 20px 0;
+}
+.username {
+  display: flex;
+}
+.username img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.name {
+  height: 50px;
+  margin: 0px 10px;
+  line-height: 50px;
+}

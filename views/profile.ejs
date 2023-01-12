@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/profile.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div class="header-nav">
+        <div class="header">
+            <a href="/" class="logo" id="logo">
+                <img src="/Image/logo.png" alt="">
+            </a>
+            <div class="search">
+                <input class="input-search" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <button class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                </button>
+            </div>
+            <% if(!user.username) { %>
+                <a href="/login" class="login">
+                    <button class="login-btn">
+                        <h3>Đăng nhập</h3>
+                    </button>
+                </a>
+                <% } else { %>
+                    <div class="tool" id="tool">
+                        <a href="/upfile" class="upload-tool" id="upload">
+                            <i class="fa-solid fa-plus fa-lg"></i>
+                            <h3>Tải lên</h3>
+                        </a>
+                        <a href="/chat" class="chat-tool" id="chat">
+                            <i class="fa-regular fa-paper-plane fa-lg"></i>
+                        </a>
+                        <a href="/message" class="message-tool" id="message">
+                            <i class="fa-regular fa-message fa-lg"></i>
+                        </a>
+                        <div class="user-profile-tool" id="profile">
+                            <img src="<%= user.image %>" alt="">
+                        </div>
+
+                    </div>
+                    <div class="box-profile" id="boxProfile" style="display: none;">
+                        <div><a href="/profile/<%= user.user_id %>" id="SQLUsername">
+                                <i class="fa-solid fa-user"></i>
+                                <h4>Xem hồ sơ</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-brands fa-bitcoin"></i>
+                                <h4>Nhận xu</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-video"></i>
+                                <h4>LIVE Studio</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-gear"></i>
+                                <h4>Cài đặt</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-globe"></i>
+                                <h4>Tiếng Việt</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-circle-question"></i>
+                                <h4>Phản hồi và trợ giúp</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-keyboard"></i>
+                                <h4>Phím tắt trên bàn phím</h4>
+                            </a>
+                        </div>
+                        <div style="border-bottom: 1px solid rgb(48, 47, 47);">
+                            <a href=""><i class="fa-solid fa-moon"></i>
+                                <h4>Chế độ tối</h4>
+                                <input type="checkbox" class="switch" id="switchBar">
+                            </a>
+
+                        </div>
+                        <div><a href=""><i class="fa-solid fa-right-from-bracket"></i>
+                                <h4>Đăng xuất</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-left">
+            <div class="for-you">
+                <a href="/" class="for-you-select">
+                    <i class="fa-solid fa-house fa-lg"></i>
+                    <h2>Dành cho bạn</h2>
+                </a>
+                <a href="/following" class="for-you-select">
+                    <i class="fa-solid fa-user-group fa-lg"></i>
+                    <h2>Đang Follow</h2>
+                </a>
+                <a href="/live" class="for-you-select">
+                    <i class="fa-solid fa-video fa-lg"></i>
+                    <h2>LIVE</h2>
+                </a>
+            </div>
+
+            <div class="following-acount">
+                <div style="height: 20px;">
+                    <h4>Các tài khoản đang follow</h4>
+                </div>
+                <% for(let i=0; i< allUsers.length; i++) { if(user.follow.indexOf(allUsers[i].user_id) !=-1) { %>
+                    <div class="user-acount">
+                        <div class="user-avatar">
+                            <img src="<%= allUsers[i].image %>" alt="">
+                        </div>
+                        <div class="user-infor">
+                            <div class="username">
+                                <h4>
+                                    <%= allUsers[i].username %>
+                                </h4>
+                            </div>
+                            <div class="name">
+                                <%= allUsers[i].name %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } } %>
+                        <% if(user.follow.length> 5) { %>
+                            <div class="view-all" id="allFollow">
+                                <h4>Xem thêm</h4>
+                            </div>
+                            <div class="view-back" id="backFollow" style="display:none">
+                                <h4>Thu gọn</h4>
+                            </div>
+                            <% } %>
+            </div>
+            <div class="dicovery">
+                <div style="height: 30px;">
+                    <h4>Khám phá</h4>
+                </div>
+                <span class="link"><a href="#">abcádasdsda</a></span>
+                <span class="link"><a href="#">abcádasdsda</a></span>
+                <span class="link"><a href="#">abcádasdsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></span>
+            </div>
+            <div class="footer-part">
+                <span>
+                    <h5>Giới thiệu</h5>
+                </span>
+                <span>
+                    <h5>Bảng tin</h5>
+                </span>
+                <span>
+                    <h5>Liên hệ</h5>
+                </span>
+                <span>
+                    <h5>Sự nghiệp</h5>
+                </span>
+                <span>
+                    <h5>ByteDance</h5>
+                </span> <br>
+                <span>
+                    <h5>TikTok for Good</h5>
+                </span>
+                <span>
+                    <h5>Quảng cáo</h5>
+                </span>
+                <span>
+                    <h5>Developers</h5>
+                </span>
+                <span>
+                    <h5>Transparency</h5>
+                </span>
+                <span>
+                    <h5>TikTok Rewards</h5>
+                </span>
+                <span>
+                    <h5>TikTok Browse</h5>
+                </span>
+                <span>
+                    <h5>TikTok Embeds</h5>
+                </span> <br>
+                <span>
+                    <h5>Trợ giúp</h5>
+                </span>
+                <span>
+                    <h5>An toàn</h5>
+                </span>
+                <span>
+                    <h5>Điều khiển</h5>
+                </span>
+                <span>
+                    <h5>Quyền riêng tư</h5>
+                </span>
+                <span>
+                    <h5>Creator Portal</h5>
+                </span>
+                <span>
+                    <h5>Hướng dẫn Cộng đồng</h5>
+                </span> <br>
+                <span>
+                    <h5>Thêm</h5>
+                </span> <br>
+                <span>
+                    <h5>2023 TikTok</h5>
+                </span>
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="acount-profile">
+                <div class="infor">
+                    <div class="profile1">
+                        <div class="profile-image">
+                            <img src="<%= user.image %>" alt="">
+                        </div>
+                        <div class="profile-infor">
+                            <div class="infor-username">
+                                <h1>
+                                    <%= user.username %>
+                                </h1>
+                            </div>
+                            <div class="infor-name">
+                                <h3>
+                                    <%= user.name %>
+                                </h3>
+                            </div>
+                            <div class="infor-btn-change" id="btnChange">
+                                <button><i class="fa-sharp fa-solid fa-pen-to-square fa-2x"></i>
+                                    <h3>Sửa hồ sơ</h3>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile2">
+                        <span>
+                            <% if(follow !=undefined) { %>
+                                <h3>
+                                    <%= follow.follow %>
+                                </h3>
+                                <% } else { %>
+                                    <h3>0</h3>
+                                    <% } %>
+                        </span>
+                        <span style="margin-right: 20px;">Follow</span>
+                        <span>
+                            <% if(follower !=undefined) { %>
+                                <h3>
+                                    <%= follower.follower %>
+                                </h3>
+                                <% } else { %>
+                                    <h3>0</h3>
+                                    <% } %>
+                        </span>
+                        <span style="margin-right: 20px;">Follower</span>
+                        <span>
+                            <h3>
+                                <%= user.countLike %>
+                            </h3>
+                        </span><span>Thích</span>
+                    </div>
+                    <div class="story">
+                        <span>
+                            <% if(user.story !='' ) { %>
+                                <%= user.story %>
+                                    <% } else { %>
+                                        Chưa có tiểu sử.
+                                        <% } %>
+                        </span>
+                    </div>
+                </div>
+                <div class="share-icon"><i class="fa-solid fa-share fa-lg"></i></div>
+            </div>
+
+
+            <div class="video-profile">
+                <div class="video-header">
+                    <div id="videoVideo">
+                        <h3>Video</h3>
+                    </div>
+                    <div id="videoLike">
+                        <h3><i class="fa-solid fa-lock"></i> Đã thích</h3>
+                    </div>
+                </div>
+                <div class="video-content">
+                    <div class="content-video" id="contentVideo" style="visibility:visible;">
+
+                        <% for(let i=0; i< blog.length;i++) { %>
+                            <div class="video-path blog<%= blog[i].blog_id %>">
+                                <div>
+                                    <video controls src="<%= blog[i].url %>" loop>
+                                    </video>
+                                </div>
+                                <span class="video-status">
+                                    <%= blog[i].status %>
+                                </span>
+                            </div>
+                            <% } %>
+
+                    </div>
+                    <div class="content-like" id="contentLike" style="visibility:hidden;">
+
+                        <% for(let i=0; i< oneLike.length;i++) { %>
+                            <div class="video-path-like bloglike<%= oneLike[i].blog_id %>">
+                                <div>
+                                    <video controls src="<%= oneLike[i].url %>" loop>
+                                    </video>
+                                </div>
+                                <span class="video-status">
+                                    <%= oneLike[i].status %>
+                                </span>
+                            </div>
+                            <% } %>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="profile-change-motal" id="changeMotal" style="display: none;"></div>
+    <div class="change-background" id="changeBackground" style="display: none;">
+        <div class="profile-change">
+            <div class="profile-title">
+                <h2>Sửa hồ sơ</h2>
+                <i class="fa-solid fa-xmark fa-2x" id="iconClose"></i>
+            </div>
+            <div class="profile-avatar">
+                <h3>Ảnh hồ sơ</h3>
+                <div class="profile-image-change">
+                    <div>
+                        <img id="imageChange" src="<%= user.image %>" alt="">
+                    </div>
+                    <input type="file" id="btnImageChange" style="display: none;">
+                    <div class="icon-image-change" id="changeClick"><i class="fa-solid fa-user-pen fa-lg"></i></div>
+                    <div class="loading-bar" id="loadingBar" style="display: none">
+                        <div>Loading...<span id="loading"></span>%</div>
+                        <input type="range" name="" min="0" max="100" id="loadingRange" style="margin: 10px 0;"
+                            value="0">
+                    </div>
+
+                </div>
+            </div>
+            <div class="profile-id">
+                <h3>TikTok ID</h3>
+                <div>
+                    <input class="id-input" id="idInput" type="text" value="<%= user.tiktok_id %>"> <br>
+                    <span>www.tiktok.com/@<span id="idChange">
+                            <%= user.tiktok_id %>
+                        </span> </span> <br> <br>
+                    <span>TikTok ID chỉ có thể bao gồm chữ cái, chữ số, dấu gạch dưới và dấu chấm. Khi thay đổi TikTok
+                        ID, liên kết hồ sơ của bạn cũng sẽ thay đổi.</span>
+                </div>
+            </div>
+            <div class="profile-name">
+                <h3>Tên</h3>
+                <div>
+                    <input class="name-input" id="nameInput" type="text" value="<%= user.name %>"> <br>
+                    <span>Bạn chỉ có thể thay đổi biệt danh 7 ngày một lần.</span>
+                </div>
+            </div>
+            <div class="profile-story">
+                <h3>Tiểu sử</h3>
+                <div>
+                    <textarea class="story-input" id="storyInput" type="text" placeholder="Tiểu sử"
+                        maxlength="80"><%= user.story %></textarea> <br>
+                    <span><span id="charInput">0</span>/80</span>
+                </div>
+            </div>
+            <div class="profile-btn" style="border: none;">
+                <button class="change-cancel" id="btnCancel">Hủy</button>
+                <button class="change-save" id="btnSave" disabled>Lưu</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-storage-compat.js"></script>
+<script src="/profile.js"></script>
+<script src="/firebase.js"></script>
+
+</html>

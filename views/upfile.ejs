@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/upfile.css">
+    <title>upload</title>
+</head>
+
+<body>
+    <div class="header-nav">
+        <div class="header">
+            <a href="/" class="logo" id="logo">
+                <img src="/Image/logo.png" alt="">
+            </a>
+            <div class="search">
+                <input class="input-search" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <button class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                </button>
+            </div>
+            <% if(!user.username) { %>
+                <a href="/login" class="login">
+                    <button class="login-btn">
+                        <h3>Đăng nhập</h3>
+                    </button>
+                </a>
+                <% } else { %>
+                    <div class="tool" id="tool">
+                        <a href="/upfile" class="upload-tool" id="upload">
+                            <i class="fa-solid fa-plus fa-lg"></i>
+                            <h3>Tải lên</h3>
+                        </a>
+                        <a href="/chat" class="chat-tool" id="chat">
+                            <i class="fa-regular fa-paper-plane fa-lg"></i>
+                        </a>
+                        <a href="/message" class="message-tool" id="message">
+                            <i class="fa-regular fa-message fa-lg"></i>
+                        </a>
+                        <div class="user-profile-tool" id="profile">
+                            <img src="<%= user.image %>" alt="">
+                        </div>
+
+                    </div>
+                    <div class="box-profile" id="boxProfile" style="display: none;">
+                        <div><a href="/profile/<%= user.user_id %>">
+                                <i class="fa-solid fa-user"></i>
+                                <h4>Xem hồ sơ</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-brands fa-bitcoin"></i>
+                                <h4>Nhận xu</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-video"></i>
+                                <h4>LIVE Studio</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-gear"></i>
+                                <h4>Cài đặt</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-globe"></i>
+                                <h4>Tiếng Việt</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-circle-question"></i>
+                                <h4>Phản hồi và trợ giúp</h4>
+                            </a>
+                        </div>
+                        <div><a href="">
+                                <i class="fa-solid fa-keyboard"></i>
+                                <h4>Phím tắt trên bàn phím</h4>
+                            </a>
+                        </div>
+                        <div style="border-bottom: 1px solid rgb(48, 47, 47);">
+                            <a href=""><i class="fa-solid fa-moon"></i>
+                                <h4>Chế độ tối</h4>
+                                <input type="checkbox" class="switch" id="switchBar">
+                            </a>
+
+                        </div>
+                        <div><a href=""><i class="fa-solid fa-right-from-bracket"></i>
+                                <h4>Đăng xuất</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="main-box">
+            <div>
+                <h1>Tải video lên</h1>
+            </div>
+            <div style="font-size: 20px;height: 50px;line-height: 50px;">Đăng video vào tài khoản của bạn</div>
+            <div class="main-content">
+                <div id="uploadBox">
+                    <div class="upload-box" id="box1" style="display:block">
+                        <input id="inputUpload" type="file" accept="video/*" name="" id="" style="display: none;">
+                        <div>
+                            <h3>Chọn video để tải lên</h3>
+                        </div>
+                        <div>Hoặc kéo và thả tập tin</div>
+                        <div>Mp4 hoặc WebM</div>
+                        <div>Độ phân giải 720x1280 trở lên</div>
+                        <div>Tối đa 10 phút</div>
+                        <div>Nhỏ hơn 2GB</div>
+                        <button id="btnUpload">
+                            <h2>Chọn tập tin</h2>
+                        </button>
+                    </div>
+                    <div class="loadding" id="box2" style="display:none">
+                        <img src="/Image/Reload-1s-200px.svg" width="50px" alt="">
+                        <div>Loading...<span id="loading"></span>%</div>
+                        <input type="range" name="" min="0" max="100" id="loadingRange" style="margin: 10px 0;" value="0">
+                    </div>
+                    <div class="preview" id="preview" style="display: none;">
+                        <div class="jsx-1545465582 preview-v2">
+                            <div class="fix-video">
+                                <video controls="controls" loop="" autoplay="" preload="auto" class="player"
+                                    id="player">
+                                    <source src="">
+                                </video>
+                            </div>
+
+                            <div class="jsx-1545465582 title">
+                                <div class="jsx-1545465582 following">Đang Follow</div>
+                                <div class="jsx-1545465582 for-you">Dành cho bạn</div>
+                            </div>
+                            <div class="jsx-1545465582 meta-data">
+                                <div class="jsx-1545465582 username">@<%= user.username %></div>
+                                <div class="jsx-1545465582 caption">test</div>
+                                <div class="jsx-1545465582 sound-container">
+                                    <div class="jsx-1545465582 music-icon"><img
+                                            src="https://lf16-tiktok-common.ttwstatic.com/obj/tiktok-web-common-sg/ies/creator_center/svgs/music_icon.7576d62b.svg"
+                                            class="jsx-1545465582"></div>
+                                    <div class="jsx-1545465582 sound">
+                                        <div class="jsx-1545465582 marquee">
+                                            <p class="jsx-1545465582">Âm thanh gốc - <%= user.name %><span
+                                                    class="jsx-1545465582">&nbsp;</span></p>
+                                            <p class="jsx-1545465582">Âm thanh gốc - <%= user.name %><span
+                                                    class="jsx-1545465582">&nbsp;</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="change-video">
+                                <div class="file-infor">
+                                    <i class="fa-solid fa-check"></i>
+                                    <div class="file-text" id="fileName"></div>
+                                </div>
+                                <div class="btn-change" id="btnChange">Thay đổi video</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <form class="status-upload" id="send">
+                    <div class="status-firts">
+                        <div>
+                            <h4>Chú thích</h4>
+                        </div>
+                        <div><span id="charInput">0</span>/150</div>
+                    </div>
+                    <input name="status" type="text" name="" id="statusInput" maxlength="150">
+                    <div>
+                        <h4>Ảnh bìa</h4>
+                    </div>
+                    <div class="image-screen" id="imgScreen"></div>
+                    <div>
+                        <h4>Ai có thể xem video này</h4>
+                    </div>
+                    <select name="provide" id="">
+                        <option>Công khai</option>
+                        <option>Bạn bè</option>
+                        <option>Riêng tư</option>
+                    </select>
+                    <div>
+                        <h4>Cho phép người dùng</h4>
+                    </div>
+                    <div class="checkbox">
+                        <input name="comment" type="checkbox" checked> <span>Bình luận</span>
+                        <input name="duet" type="checkbox" checked> <span>Duet</span>
+                        <input name="stitch" type="checkbox" checked> <span>Stitch</span>
+                    </div>
+                    <div>
+                        <h4>Chạy quy trình kiểm tra bản quyền</h4>
+                    </div>
+                    <div style="margin: 10px 0;color: rgb(119, 115, 115);">Chúng tôi sẽ kiểm tra video của bạn
+                        có sử
+                        dụng âm thanh vi phạm bản quyền hay không. Nếu chúng tôi phát hiện có vi phạm, bạn có
+                        thể chỉnh
+                        sửa video trước đi đăng. <span style="color: white;">Tìm hiểu thêm</span>
+                    </div>
+                    <div class="btn-status">
+                        <div id="cancel">Hủy bỏ</div>
+                        <button type="submit">Đăng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <div class="footer1">
+                <span class="footer-logo">
+                    <img src="/Image/ftlogo.png" alt="">
+                </span>
+                <div class="city">
+                    <h5>Công ty</h5>
+                    <span>Giới thiệu</span> <br>
+                    <span>Bản tin</span> <br>
+                    <span>Liên hệ</span> <br>
+                    <span>Sự nghiệp</span> <br>
+                    <span>ByteDance</span> <br>
+                </div>
+                <div class="city">
+                    <h5>Chương trình</h5>
+                    <span>TikTok for Good</span> <br>
+                    <span>Quảng cáo</span> <br>
+                    <span>Developers</span> <br>
+                    <span>TikTok Rewards</span> <br>
+                    <span>TikTok Browse</span> <br>
+                    <span>TikTok Embeds</span> <br>
+                </div>
+                <div class="city">
+                    <h5>Hỗ trợ</h5>
+                    <span>Trung tâm Trợ giúp</span> <br>
+                    <span>Trung tâm An toàn</span> <br>
+                    <span>Creator Portal</span> <br>
+                    <span>Hướng dẫn Cộng đồng</span> <br>
+                    <span>Minh bạch</span> <br>
+                    <span>Accessibility</span> <br>
+                </div>
+                <div class="city">
+                    <h5>Pháp lý</h5>
+                    <span>Terms of Use</span> <br>
+                    <span>Privacy Policy</span> <br>
+                    <span>NGUYÊN TẮC THỰC THI PHÁP LUẬT CỦA TIKTOK</span> <br>
+                </div>
+
+            </div>
+            <div class="footer2">
+                <div class="language-api"></div>
+                <div>2023 TikTok</div>
+            </div>
+        </footer>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-storage-compat.js"></script>
+
+<script src="/firebase.js"></script>
+<script src="/upfile.js"></script>
+
+</html>

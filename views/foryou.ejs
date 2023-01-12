@@ -1,0 +1,99 @@
+<% for(let i=0; i< blog.length; i++) { %>
+    <div class="content-property blog<%= blog[i].blog_id %>">
+        <div class="right-avatar">
+            <img src="<%= blog[i].image %>" alt="">
+        </div>
+        <div class="right-note">
+            <div class="note-header-top">
+                <div class="note-header-left">
+                    <div class="note-header">
+                        <span class="note-username">
+                            <h2>
+                                <%= blog[i].username %>
+                            </h2>
+                        </span> .
+                        <span class="note-name">
+                            <%= blog[i].name %>
+                        </span>
+                        <div class="note-time">
+                            <%= blog[i].time %>
+                        </div>
+                    </div>
+                    <div class="note-status">
+                        <%= blog[i].status %>
+                    </div>
+                    <div class="note-link"><a href="#">
+                            <h4></h4>
+                        </a></div>
+                </div>
+                <% if(user.follow) {
+                if(user.follow.indexOf(blog[i].user_id)==-1 && blog[i].username !=user.username) { %>
+                    <div class="note-follow">
+                        <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow">
+                            <h4>Follow</h4>
+                        </button>
+                    </div>
+                    <% } else if (user.follow.indexOf(blog[i].user_id) !=-1 && blog[i].username!=user.username){ %>
+                        <div class="note-follow">
+                            <button class="user<%= user.user_id %> user<%= blog[i].user_id %> cancel-follow">
+                                <h4>Đang Follow</h4>
+                            </button>
+                        </div>
+                        <% } 
+                    } else { %>
+                        <div class="note-follow">
+                            <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow">
+                                <h4>Follow</h4>
+                            </button>
+                        </div>
+                        <% } %>
+
+
+
+            </div>
+            <div class="note-url">
+                <video controls width="350" height="550">
+                    <source src="<%= blog[i].url %>" type="video/webm" loop="">
+                </video>
+                <div class="contact">
+                    <% let flag=false; for(let j=0; j< allLike.length;j++) { if(allLike[j].user_id==user.user_id &&
+                        allLike[j].blog_id==blog[i].blog_id) { flag=true; break; } } if(flag) { %>
+                        <span style="color: crimson"
+                            class="btn-like like<%= user.user_id %> like<%= blog[i].user_id %>"><i
+                                class="fa-solid fa-heart fa-2x"></i></span>
+                        <% } else { %>
+                            <span style="color: white"
+                                class="btn-like like<%= user.user_id %> like<%= blog[i].user_id %>"><i
+                                    class="fa-solid fa-heart fa-2x"></i></span>
+                            <% } %>
+                                <span>
+                                    <% if(like[1].indexOf(blog[i].blog_id)==-1) { %>
+                                        0
+                                        <% } else { for(let j=0; j< like[0].length; j++) {
+                                        if(like[0][j].blog_id==blog[i].blog_id) { %>
+                                            <%= like[0][j].like %>
+                                        <% break; } } } %>
+                                </span>
+                                <span class="btn-comment"><a href="/comment/<%= blog[i].blog_id %>/home"
+                                        style="color:white"><i class="fa-regular fa-comment-dots fa-2x"></i></a></span>
+                            <% let flag1=false; let index; for(let j=0; j< totalComment.length;j++) { 
+                                if(totalComment[j].blog_id==blog[i].blog_id) {
+                                     flag1=true; index = j; break; 
+                                } 
+                            } 
+                            if(flag1) { %>
+                                <span>
+                                    <%= totalComment[index].count %>
+                                </span>
+                            <% } else { %>
+                                    <span>0</span>
+                            <% } %>
+                                <span class="btn-share"><i class="fa-sharp fa-solid fa-share fa-2x"></i></span>
+                                <span>
+                                    <%= blog[i].share %>
+                                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>

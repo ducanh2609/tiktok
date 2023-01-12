@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/signin.css">
+    <title>Sign In</title>
+</head>
+
+<body>
+    <form class="signin-form" id="signinForm">
+        <label for="username" class="username">Username</label> <br>
+        <input type="text" name="username"> <br>
+        <label for="email" class="email">Email</label> <br>
+        <input type="email" name="email"> <br>
+        <label for="password">Password</label> <br>
+        <input type="password" class="password" name="password">
+        <i class="fa-regular fa-eye fa-lg"></i> <br>
+        <label for="confirmPass">Confirm Password</label> <br>
+        <input type="password" class="password" name="confirmPass">
+        <i class="fa-regular fa-eye fa-lg"></i> <br>
+        <div class="err" id="err">Có trường nhập chưa đúng</div>
+        <div class="btn">
+            <button class="signin" type="submit">Sign In</button>
+            <div class="cancel" id="cancel">Cancel</div>
+        </div>
+        <div class="direcLogin">Đã có tài khoản => <a href="/login">Đăng nhập</a></div>
+    </form>
+</body>
+<script src="/signin.js"></script>
+
+</html>

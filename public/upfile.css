@@ -1,0 +1,564 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  /* border: 1px red solid; */
+  position: relative;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: rgb(24, 26, 27);
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.header-nav {
+  position: relative;
+  height: 60px;
+  border-bottom: 1px rgba(0, 0, 0, 0.216) solid;
+  box-sizing: border-box;
+}
+.header {
+  position: relative;
+  width: 75%;
+  margin: 0 auto;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.header a,
+.header div {
+  box-sizing: border-box;
+  margin: 5px 0;
+}
+
+/* 1 */
+.logo {
+  width: 11.5%;
+  height: 92%;
+}
+.logo:hover {
+  cursor: pointer;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 2 */
+.search {
+  width: 30%;
+  border: 1px solid rgb(61, 58, 58);
+  border-radius: 30px;
+  padding: 5px 5px 5px 15px;
+  box-sizing: border-box;
+}
+.search input {
+  height: 100%;
+  width: calc(100% - 40px);
+  background-color: rgb(24, 26, 27);
+  border: none;
+  outline: none;
+  font-size: 18px;
+  color: white;
+}
+.search button {
+  height: 100%;
+  width: 30px;
+  border: none;
+  background-color: rgb(24, 26, 27);
+}
+.search button i {
+  color: rgba(21, 21, 22, 0.329);
+}
+.search button:hover {
+  cursor: pointer;
+}
+.login {
+  width: 15%;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+.tool {
+  width: 25%;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* 3 */
+.tool div,
+.tool a {
+  position: relative;
+  padding: 0 5px;
+  text-decoration: none;
+  color: white;
+}
+.tool div:hover,
+.tool a:hover {
+  cursor: pointer;
+}
+.upload-tool {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+  height: 100%;
+  line-height: 35px;
+  text-align: center;
+  border: 1px solid rgb(55, 53, 53);
+}
+.upload-tool:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.599);
+}
+.upload-tool i {
+  position: relative;
+  top: 17px;
+}
+.chat-tool,
+.message-tool {
+  padding: 10px !important;
+  text-align: center;
+  width: 20%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.user-profile-tool {
+  padding: 0 !important;
+  position: relative;
+  width: 40px;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user-profile-tool img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.user-profile-tool:hover .box-profile {
+  display: block;
+}
+.box-profile {
+  position: absolute;
+  right: 0;
+  border: 1px solid rgb(36, 36, 36);
+  box-sizing: border-box;
+  width: 250px;
+  z-index: 500;
+  top: 60px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 5px black;
+  background-color: rgb(24, 26, 27);
+}
+.box-profile div a {
+  padding: 0 20px;
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  color: white;
+}
+.box-profile div:hover {
+  background-color: rgb(60, 58, 58);
+  cursor: pointer;
+}
+.box-profile div a i {
+  position: relative;
+  top: 12px;
+  margin-right: 10px;
+}
+.switch {
+  position: relative;
+  height: 25px;
+  width: 25%;
+  left: 25%;
+  top: 10px;
+  appearance: none;
+  background: #83b8ff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.switch::before {
+  content: "";
+  left: 2px;
+  top: 2px;
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  background: #efe2bf;
+  z-index: 600;
+}
+.switch:checked {
+  background: #749dd6;
+}
+.switch:checked:before {
+  left: 29px;
+}
+
+/* Content */
+.content {
+  /* border: 1px solid red; */
+  background-color: rgba(28, 30, 31, 1);
+  min-height: 100vh;
+  padding: 20px 0;
+}
+.main-box {
+  /* border: 1px solid blue; */
+  background-color: rgb(24, 26, 27);
+  border-radius: 10px;
+  width: 74%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  min-height: 90vh;
+  padding: 24px 56px;
+}
+.main-content {
+  margin: 24px 0 130px 0;
+  /* border: 1px solid blue; */
+  height: 700px;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+#uploadBox {
+  position: relative;
+  width: 27%;
+  height: 75%;
+  border-radius: 10px;
+  padding: 100px 35px;
+  border: 2px dashed rgb(65, 65, 68);
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.upload-box div {
+  height: 50px;
+  text-align: center;
+}
+.upload-box button {
+  height: 40px;
+  width: 100%;
+  background-color: rgb(239, 9, 55);
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
+.upload-box button:hover {
+  cursor: pointer;
+  background-color: rgb(239, 45, 84);
+}
+/* Loading */
+.loadding {
+  position: relative;
+  /* border: 1px solid red; */
+  text-align: center;
+  top: 80px;
+}
+#loadingRange {
+  height: 5px;
+}
+/* End uploading */
+
+/* Preview */
+.preview-v2.jsx-1545465582 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(22, 24, 35, 1);
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+  scale: 1.1;
+  border-radius: 20px;
+  border: 5px solid rgba(58, 66, 69, 1);
+  padding: 10px;
+}
+.fix-video {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 900;
+  overflow: hidden;
+}
+.player {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  object-fit: contain;
+  border-radius: 0.5px;
+}
+
+.preview-v2.jsx-1545465582 .title.jsx-1545465582 {
+  position: absolute;
+  top: 23px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  z-index: 2;
+  width: 100%;
+  opacity: 0.6;
+  font-size: 12px;
+  line-height: 17px;
+  font-family: proxima-bold, Arial, Tahoma, PingFangSC, sans-serif,
+    "Segoe UI Emoji", "Noto Emoji";
+  font-weight: 700;
+}
+.preview-v2.jsx-1545465582 .title.jsx-1545465582 .following.jsx-1545465582 {
+  color: rgba(255, 255, 255, 0.75);
+  margin-right: 20px;
+}
+.preview-v2.jsx-1545465582 .title.jsx-1545465582 .for-you.jsx-1545465582 {
+  color: white;
+}
+.preview-v2.jsx-1545465582 .meta-data.jsx-1545465582 {
+  position: absolute;
+  bottom: 70px;
+  left: 25px;
+  z-index: 2;
+  opacity: 0.6;
+  color: white;
+}
+.preview-v2.jsx-1545465582 .meta-data.jsx-1545465582 .username.jsx-1545465582 {
+  font-size: 12px;
+  line-height: 17px;
+  font-family: proxima-bold, Arial, Tahoma, PingFangSC, sans-serif,
+    "Segoe UI Emoji", "Noto Emoji";
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.preview-v2.jsx-1545465582 .meta-data.jsx-1545465582 .caption.jsx-1545465582 {
+  font-size: 12px;
+  line-height: 17px;
+  font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, Arial,
+    Tahoma;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 150px;
+  margin-bottom: 4px;
+}
+.preview-v2.jsx-1545465582
+  .meta-data.jsx-1545465582
+  .sound-container.jsx-1545465582 {
+  display: flex;
+}
+.preview-v2.jsx-1545465582
+  .meta-data.jsx-1545465582
+  .sound-container.jsx-1545465582
+  .music-icon.jsx-1545465582 {
+  margin-right: 7px;
+}
+.preview-v2.jsx-1545465582 .meta-data.jsx-1545465582 {
+  position: absolute;
+  bottom: 70px;
+  left: 25px;
+  z-index: 2;
+  opacity: 0.6;
+  color: white;
+}
+.preview-v2.jsx-1545465582
+  .meta-data.jsx-1545465582
+  .sound-container.jsx-1545465582
+  .sound.jsx-1545465582 {
+  max-width: 150px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 17px;
+  font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, Arial,
+    Tahoma;
+  font-weight: 400;
+}
+.preview-v2.jsx-1545465582
+  .meta-data.jsx-1545465582
+  .sound-container.jsx-1545465582
+  .sound.jsx-1545465582
+  .marquee.jsx-1545465582 {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: 10s linear 0s infinite normal none running marquee-jsx-1545465582;
+}
+.change-video {
+  display: flex;
+  position: relative;
+  left: -10px;
+  top: 20px;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 0 10px;
+  border: 1px solid rgb(63, 61, 61);
+  border-radius: 10px;
+  height: 40px;
+  line-height: 35px;
+  width: 110%;
+  box-sizing: border-box;
+}
+.file-infor {
+  display: flex;
+  scale: 0.9;
+  color: rgb(124, 121, 121);
+  max-width: 45%;
+}
+.file-infor i {
+  position: relative;
+  border: solid rgb(88, 86, 86) 1px;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  text-align: center;
+}
+.file-text {
+  margin-left: 5px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+}
+.btn-change {
+  scale: 0.9;
+}
+.btn-change:hover {
+  cursor: pointer;
+}
+
+/* End Preview */
+.status-upload {
+  /* border: 1px solid blue; */
+  width: 70%;
+}
+.status-firts {
+  display: flex;
+  justify-content: space-between;
+}
+.status-upload input {
+  height: 50px;
+  width: 100%;
+  margin: 10px 0 20px 0;
+  padding: 0 10px;
+  background-color: rgb(24, 26, 27);
+  outline: none;
+  border: 1px solid rgb(59, 57, 57);
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+}
+.image-screen {
+  min-width: 100%;
+  max-width: 100%;
+  height: 200px;
+  border: 1px solid rgb(59, 57, 57);
+  margin: 10px 0 30px 0;
+  padding: 10px;
+  display: flex;
+  /* overflow: hidden; */
+}
+.image-screen div {
+  width: 100px;
+  height: 100%;
+  margin-right: 10px;
+  opacity: 0.4;
+}
+.image-screen div img {
+  width: 100%;
+  height: 100%;
+}
+.image-click {
+  scale: 1.4;
+  opacity: 1 !important;
+  border: 4px solid rgb(44, 43, 43) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+select {
+  margin: 10px 0 20px 0;
+  height: 40px;
+  width: 300px;
+  color: white;
+  background-color: rgb(24, 26, 27);
+  font-size: 18px;
+  outline: none;
+}
+.checkbox {
+  margin: 5px 0 20px 0;
+}
+.checkbox input {
+  height: 18px;
+  width: 18px;
+  background-color: none;
+}
+
+.checkbox span {
+  margin: 0 10px;
+  font-size: 18px;
+}
+.btn-status {
+  display: flex;
+  justify-content: flex-start;
+}
+.btn-status button,
+.btn-status div {
+  height: 55px;
+  width: 180px;
+  font-size: 20px;
+  background-color: rgb(24, 26, 27);
+  color: white;
+  border-radius: 5px;
+  border: 1px solid rgb(59, 57, 57);
+  margin-right: 30px;
+  text-align: center;
+  line-height: 52px;
+}
+.btn-status button:hover,
+.btn-status div:hover {
+  cursor: pointer;
+  background-color: rgb(60, 59, 59);
+}
+
+/* Footer */
+
+footer {
+  height: 350px;
+  background-color: black;
+}
+.footer1 {
+  position: relative;
+  padding: 40px 0 0 400px;
+  box-sizing: border-box;
+  /* border: 1px solid blue; */
+  height: 300px;
+  display: flex;
+  justify-content: start;
+  font-size: 20px;
+}
+.footer1 div {
+  width: 21%;
+  /* border: 1px solid blue; */
+}
+.footer1 div span {
+  font-size: 15px;
+}
+.footer-logo img {
+  position: absolute;
+  width: 10%;
+  left: 10%;
+}
+.footer2 {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  height: 50px;
+  line-height: 50px;
+}

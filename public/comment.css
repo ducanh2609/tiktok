@@ -1,0 +1,321 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  background-color: rgb(24, 26, 27);
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
+.page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.page-left {
+  width: 63%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.page-left video {
+  top: 0.5%;
+  width: max-content;
+  max-width: 50% !important;
+  height: 99%;
+  position: relative;
+  left: 25%;
+}
+.page-left > div {
+  position: absolute;
+}
+.close {
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: rgb(81, 78, 78);
+}
+
+.close i {
+  position: relative;
+  top: 4px;
+}
+.logo {
+  top: 20px;
+  left: 85px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: black;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  scale: 0.8;
+}
+
+.report {
+  right: 10px;
+  top: 20px;
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+  text-align: center;
+  background-color: rgb(81, 78, 78);
+  line-height: 40px;
+}
+.report i {
+  margin-right: 5px;
+}
+.down {
+  top: 50%;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background-color: rgb(81, 78, 78);
+  border-radius: 50%;
+}
+.down i {
+  position: relative;
+  top: 8px;
+}
+.up {
+  top: 40%;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background-color: rgb(81, 78, 78);
+  border-radius: 50%;
+  display: none;
+}
+.up i {
+  position: relative;
+  top: 8px;
+}
+.close:hover,
+.report:hover,
+.down:hover,
+.up:hover {
+  cursor: pointer;
+  background-color: rgb(44, 43, 43);
+}
+
+.page-right {
+  padding-top: 32px;
+  width: 37%;
+  /* height: 100vh; */
+  background-color: rgb(17, 17, 17);
+  box-sizing: border-box;
+}
+.page-right > div,
+form {
+  padding: 22px 32px 0;
+  margin: 0 0 8px;
+  width: 100%;
+}
+.user-infor {
+  display: flex;
+  box-sizing: border-box;
+}
+.user-image img {
+  width: 40px;
+  height: 40px;
+  margin: 6px 12px 6px 0;
+  border-radius: 50%;
+}
+.user-profile {
+  width: 280px;
+  margin-right: 12px;
+}
+.follow,
+.cancel-follow {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px solid red;
+  height: 36px;
+  width: 100px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 5px;
+  color: white;
+}
+.follow:hover,
+.cancel-follow:hover {
+  cursor: pointer;
+  background-color: rgb(254, 44, 85);
+}
+
+.blog-infor {
+  /* border: 1px solid red; */
+  height: 100px;
+  padding-top: 0 !important;
+  border-bottom: 1px solid rgb(87, 85, 85);
+}
+.blog-infor div {
+  height: 40px;
+}
+.btn-contact {
+  display: flex;
+}
+.btn-contact input {
+  height: 35px;
+  width: 65%;
+  color: white;
+  border-radius: 10px 0 0 10px;
+  border: none;
+  padding-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn-contact button {
+  height: 35px;
+  width: 34%;
+  border: none;
+  background-color: rgb(42, 42, 42);
+  color: white;
+  box-sizing: border-box;
+  border-radius: 0 10px 10px 0;
+}
+.btn-contact button:hover {
+  cursor: pointer;
+  background-color: rgb(65, 63, 63);
+}
+.comment-content {
+  height: 370px;
+  overflow: auto;
+  border-bottom: 1px solid rgb(62, 61, 61);
+}
+
+.comment-content::-webkit-scrollbar {
+  width: 8px;
+}
+.comment-content::-webkit-scrollbar-thumb {
+  background-color: #ad691a;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  position: 30%;
+}
+.comment-content::-webkit-scrollbar-track {
+  background: none;
+}
+.comment-part {
+  padding-bottom: 10px;
+  display: flex;
+}
+.user-cmt-image img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+.user-cmt-profile {
+  width: 80%;
+}
+.btn-like {
+  position: relative;
+}
+
+.comment-part:hover {
+  cursor: pointer;
+}
+.fa-ellipsis {
+  position: absolute;
+}
+.comment-part:hover .fa-ellipsis {
+  display: block !important;
+}
+
+.input-send {
+  /* border: 1px solid red; */
+  display: flex;
+  height: 80px;
+  position: relative;
+}
+.input-div {
+  height: 40px;
+  width: 90%;
+  margin-right: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgb(79, 80, 82);
+  position: relative;
+}
+.input-div input {
+  height: 100%;
+  width: 80%;
+  padding: 0 10px;
+  color: white;
+  background-color: rgb(79, 80, 82);
+  border: none;
+  outline: none;
+}
+.user-link {
+  /* border: 1px solid red; */
+  position: absolute;
+  right: 10%;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  font-size: 25px;
+  text-align: center;
+}
+.user-link:hover,
+.emoji:hover {
+  cursor: pointer;
+}
+.emoji {
+  position: absolute;
+  /* border: 1px solid red; */
+  width: 10%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  height: 100%;
+  line-height: 35px;
+}
+
+.emoji-code {
+  /* border: 1px solid red; */
+  position: absolute;
+  width: 300px;
+  /* height: max-content; */
+  bottom: 60px;
+  right: 15%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: 18% 18% 18% 18% 18%;
+  grid-row-gap: 15px;
+  background-color: rgb(24, 26, 27);
+  box-shadow: -5px -5px 10px rgb(114, 112, 112);
+  visibility: hidden;
+}
+.emoji-code div {
+  width: 100%;
+  height: 100%;
+  scale: 1.8;
+  /* border: 1px solid red; */
+  text-align: center;
+  margin-left: 10px;
+}
+.input-send button {
+  height: 40px;
+  background-color: rgb(17, 17, 17);
+  color: rgb(59, 58, 58);
+  border: none;
+}
+.input-send button:hover {
+  cursor: pointer;
+}

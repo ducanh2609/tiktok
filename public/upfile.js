@@ -1,0 +1,187 @@
+btnUpload.addEventListener('click', () => {
+    inputUpload.click();
+})
+let url;
+inputUpload.addEventListener('change', async () => {
+    let file = inputUpload.files[0];
+    let url1 = window.URL.createObjectURL(inputUpload.files[0])
+    console.log(file.name);
+    // set loading
+    box1.style.display = 'none';
+    preview.style.display = 'none';
+    box2.style.display = 'block';
+    player.src = '';
+    imgScreen.innerHTML = '';
+    var uploadTask = firebase.storage().ref()
+        .child('test')
+        .child(file.name)
+        .put(file);
+    uploadTask.on('state_changed',
+        (snapshot) => {
+
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            loading.innerText = progress.toFixed(1);
+            loadingRange.value = progress.toFixed(1);
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+        },
+        (error) => {
+            console.log(error);
+            // Handle unsuccessful uploads
+        },
+        async () => {
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                url = downloadURL;
+                // clear loading
+                preview.style.display = 'block';
+                box2.style.display = 'none';
+                player.src = url;
+                fileName.innerText = file.name;
+                send.disabled = false;
+            });
+            showImageAt(0, url1);
+        }
+    );
+})
+function getVideoImage(path, secs, callback) {
+    var me = this, video = document.createElement('video');
+    video.onloadedmetadata = function () {
+        if ('function' === typeof secs) {
+            secs = secs(this.duration);
+        }
+        this.currentTime = Math.min(Math.max(0, (secs < 0 ? this.duration : 0) + secs), this.duration);
+    };
+    video.onseeked = function (e) {
+        var canvas = document.createElement('canvas');
+        canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var img = new Image();
+        img.crossOrigin = "anonymous"
+        img.src = canvas.toDataURL();
+        callback.call(me, img, this.currentTime, e);
+    };
+    video.onerror = function (e) {
+        callback.call(me, undefined, undefined, e);
+    };
+    video.src = path;
+}
+
+function showImageAt(secs, url) {
+    // var duration;
+    getVideoImage(
+        `${url}`,
+        function (totalTime) {
+            duration = totalTime;
+            return secs;
+        },
+        function (img, secs, event) {
+            if (event.type == 'seeked') {
+                var div = document.createElement('div');
+                div.appendChild(img);
+                document.getElementById('imgScreen').appendChild(div);
+                if (++secs < 6) {
+                    showImageAt(secs, url);
+                } else {
+                    let screen = document.querySelectorAll('.image-screen div');
+                    console.log(screen);
+                    for (let i = 0; i < screen.length; i++) {
+                        screen[i].addEventListener('click', () => {
+                            for (let j = 0; j < screen.length; j++) {
+                                screen[j].classList.remove('image-click');
+                            }
+                            screen[i].classList.add('image-click');
+                        })
+                    }
+                };
+            }
+        }
+    );
+
+
+}
+
+
+
+
+
+cancel.addEventListener('click', () => {
+    var desertRef = firebase.storage().refFromURL(player.src)
+    desertRef.delete().then(() => {
+        console.log('ok');
+    }).catch((error) => {
+        console.log(error);
+    });
+    preview.style.display = 'none';
+    box1.style.display = 'block';
+    statusInput.value = '';
+    charInput.innerText = 0;
+    player.src = "";
+    imgScreen.innerHTML = '';
+
+})
+profile.addEventListener('mouseover', () => {
+    boxProfile.style.display = 'block'
+})
+boxProfile.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+        boxProfile.style.display = 'none'
+    }, 1500)
+})
+send.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let data = {
+        url: player.src,
+        status: send.status.value,
+        like: 0,
+        share: 0,
+        provide: send.provide.value,
+        comment: send.comment.checked,
+        duet: send.duet.checked,
+        stitch: send.stitch.checked
+    }
+    if (data.url.indexOf('localhost:3000') != -1) {
+        alert('Hãy chọn 1 video để đăng lên');
+    } else {
+        fetch('/api/v1/blog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(async (res) => {
+                let mes = await res.json();
+                alert(`${mes.message}`);
+                if (mes.message == 'Create successfully') {
+                    window.location.href = "/";
+                }
+            })
+    }
+})
+statusInput.addEventListener('input', () => {
+    charInput.innerText = statusInput.value.length;
+})
+
+let body = document.querySelector('body');
+switchBar.addEventListener('change', () => {
+    if (body.style['background-color'] == 'rgb(24, 26, 27)' || body.style['background-color'] == '') {
+        body.style['background-color'] = 'white'
+        body.style.color = 'black'
+    } else {
+        body.style['background-color'] = 'rgb(24, 26, 27)'
+        body.style.color = 'white'
+    }
+})
+
+btnChange.addEventListener(('click'), () => {
+    inputUpload.click();
+})
+

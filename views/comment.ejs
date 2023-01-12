@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/comment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Comment</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="page-left totalBlog<%= allBlog %>">
+            <video controls loop src="<%= blog.url %>"></video>
+            <div class="close user<%= user.user_id %>" id="btnClose"><i class="fa-solid fa-xmark fa-2x"></i></div>
+            <div class="logo"><img src="/Image/tiktok_logo.webp" alt=""></div>
+            <div class="report"><i class="fa-solid fa-flag"></i>Báo cáo</div>
+            <div class="down" id="down"><i class="fa-solid fa-chevron-down fa-lg"></i></div>
+            <div class="up" id="up"><i class="fa-solid fa-chevron-up fa-lg"></i></div>
+        </div>
+        <div class="page-right">
+            <div class="user-infor">
+                <div class="user-image">
+                    <img src="<%= blog.image %>" alt="">
+                </div>
+                <div class="user-profile">
+                    <div class="username">
+                        <h3>
+                            <%= blog.username %>
+                        </h3>
+                    </div>
+                    <span class="name" style="font-size: 14px;">
+                        <%= blog.name %>
+                    </span>
+                    <span>.</span>
+                    <span class="time" style="font-size: 14px;">
+                        <%= blog.time %> - <%= blog.hour %>
+                    </span>
+                </div>
+
+
+                <% if(user.follow.indexOf(blog.user_id)==-1 && blog.username !=user.username) { %>
+                    <div class="btn-follow">
+                        <button class="user<%= user.user_id %> user<%= blog.user_id %> blog<%= blog.blog_id %> follow">
+                            <h4>Follow</h4>
+                        </button>
+                    </div>
+                    <% } else if (user.follow.indexOf(blog.user_id) !=-1 && blog.username!=user.username){ %>
+                        <div class="btn-follow">
+                            <button style="background-color: crimson;"
+                                class="user<%= user.user_id %> user<%= blog.user_id %> blog<%= blog.blog_id %> cancel-follow">
+                                <h4>Đang Follow</h4>
+                            </button>
+                        </div>
+                        <% } %>
+
+
+
+
+            </div>
+            <div class="blog-infor">
+                <div class="blog-status">Test nhé &#128512;</div>
+                <div class="btn-contact">
+                    <input id="link" type="text" name="" id="" disabled
+                        value="http://localhost:3000/@<%= blog.tiktok_id %>">
+                    <button class="copy-link" id="copyLink">
+                        <h3>Sao chép liên kết</h3>
+                    </button>
+                </div>
+            </div>
+            <div class="comment-content" id="commentContent">
+                <% for(let i=0; i < comment.length; i++) { %>
+                    <div class="comment-part">
+                        <div class="user-cmt-image">
+                            <img src="<%= comment[i].image %>" alt="">
+                        </div>
+                        <div class="user-cmt-profile">
+                            <div class="username">
+                                <h3>
+                                    <%= comment[i].username %>
+                                </h3>
+                            </div>
+                            <div class="content" style="font-size: 14px;">
+                                <%= comment[i].content %>
+                            </div>
+                            <div class="time" style="font-size: 12px; color: rgb(113, 115, 116);">
+                                <%= comment[i].time %>
+                            </div>
+                        </div>
+                        <div class="btn-like">
+                            <i class="fa-solid fa-ellipsis" style="display: none;"></i> <br>
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                    <% } %>
+
+            </div>
+            <form class="input-send blog<%= blog.user_id %> user<%= user.user_id %>" id="sendForm">
+                <div class="input-div">
+                    <input id="commentInput" name="content" type="text" placeholder="Thêm bình luận...">
+                    <div class="user-link">@</div>
+                    <div class="emoji" id="emoji"><i class="fa-solid fa-face-smile fa-lg"></i></div>
+                </div>
+                <div class="emoji-code" id="emojiCode">
+                    <% for(let i=12; i<=90; i++) { %>
+                        <div class="emoji-choise">&#1285<%= i %>;</div>
+                        <% } %>
+                </div>
+
+                <button type="submit" class="btn-send">
+                    <h3>Đăng</h3>
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="/comment.js"></script>
+
+</html>
