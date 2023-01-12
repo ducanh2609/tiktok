@@ -1,4 +1,5 @@
-const db = require('../utils/db.js');
+const { db } = require('../utils/db.js');
+
 
 
 module.exports.postFollowSQL = (arr) => {

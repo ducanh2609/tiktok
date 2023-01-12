@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {postFollow, deleteFollow,postBlogLike, deleteBlogLike} = require('../controllers/blog_like_follow.controllers.js');
 
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 
 router.post('/api/v1/follow', postFollow)
@@ -52,8 +52,10 @@ function converTimePart(param) {
         param.time = 'khoảng vài phút trước';
     } else if (min >= 1) {
         param.time = 'khoảng 1 phút trước';
-    } else if (min < 1) {
-        param.time = 'khoảng vài giây trước';
+    } else if ((hieu/1000) >= 30) {
+        param.time = 'khoảng nửa phút trước';
+    } else {
+        param.time = 'Vừa xong';
     }
 }
 

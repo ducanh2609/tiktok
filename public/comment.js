@@ -1,3 +1,6 @@
+link.value = window.location.href;
+
+
 function Follow() {
     let follow = document.getElementsByClassName('follow');
     for (let i = 0; i < follow.length; i++) {
@@ -156,13 +159,15 @@ if (blogID > 1) {
 if (blogID == totalBlog) {
     down.style.display = 'none';
 }
-
-let user_id = btnClose.classList[1].slice(4);
+let tiktokIdStr = window.location.href;
+let userlikeIndex = tiktokIdStr.search('userlike-');
+let tiktokId = tiktokIdStr.slice(userlikeIndex + 9);
 btnClose.addEventListener('click', () => {
     if (window.location.href.includes('home')) {
         window.location.href = '/'
     } else if (window.location.href.includes('userlike')) {
-        window.location.href = `/profile/${user_id}`;
+        window.location.href = `/profile/@${tiktokId}`;
     }
 })
+
 // commentContent.scrollTop = commentContent.scrollHeight;

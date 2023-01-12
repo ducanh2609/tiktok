@@ -55,6 +55,7 @@ body {
   border-radius: 30px;
   padding: 5px 5px 5px 15px;
   box-sizing: border-box;
+  position: relative;
 }
 .search input {
   height: 100%;
@@ -77,6 +78,20 @@ body {
 .search button:hover {
   cursor: pointer;
 }
+.search-box {
+  position: absolute;
+  border: 1px solid red;
+  top: 50px;
+  height: max-content;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: -2px -2px 5px rgb(101, 100, 100);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+
 .login {
   width: 15%;
   padding: 5px 0 5px 10px;

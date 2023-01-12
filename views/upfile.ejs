@@ -19,7 +19,7 @@
                 <img src="/Image/logo.png" alt="">
             </a>
             <div class="search">
-                <input class="input-search" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <input class="input-search" id="inputSearch" type="text" placeholder="Tìm kiếm tài khoản và video">
                 <button class="btn-search">
                     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 </button>
@@ -48,7 +48,7 @@
 
                     </div>
                     <div class="box-profile" id="boxProfile" style="display: none;">
-                        <div><a href="/profile/<%= user.user_id %>">
+                        <div><a href="/profile/@<%= user.tiktok_id %>">
                                 <i class="fa-solid fa-user"></i>
                                 <h4>Xem hồ sơ</h4>
                             </a>
@@ -90,7 +90,7 @@
                             </a>
 
                         </div>
-                        <div><a href=""><i class="fa-solid fa-right-from-bracket"></i>
+                        <div id="logout"><a><i class="fa-solid fa-right-from-bracket"></i>
                                 <h4>Đăng xuất</h4>
                             </a>
                         </div>
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content user<%= user.user_id %>">
         <div class="main-box">
             <div>
                 <h1>Tải video lên</h1>
@@ -124,7 +124,8 @@
                     <div class="loadding" id="box2" style="display:none">
                         <img src="/Image/Reload-1s-200px.svg" width="50px" alt="">
                         <div>Loading...<span id="loading"></span>%</div>
-                        <input type="range" name="" min="0" max="100" id="loadingRange" style="margin: 10px 0;" value="0">
+                        <input type="range" name="" min="0" max="100" id="loadingRange" style="margin: 10px 0;"
+                            value="0">
                     </div>
                     <div class="preview" id="preview" style="display: none;">
                         <div class="jsx-1545465582 preview-v2">
@@ -140,7 +141,8 @@
                                 <div class="jsx-1545465582 for-you">Dành cho bạn</div>
                             </div>
                             <div class="jsx-1545465582 meta-data">
-                                <div class="jsx-1545465582 username">@<%= user.username %></div>
+                                <div class="jsx-1545465582 username">@<%= user.username %>
+                                </div>
                                 <div class="jsx-1545465582 caption">test</div>
                                 <div class="jsx-1545465582 sound-container">
                                     <div class="jsx-1545465582 music-icon"><img
@@ -149,9 +151,9 @@
                                     <div class="jsx-1545465582 sound">
                                         <div class="jsx-1545465582 marquee">
                                             <p class="jsx-1545465582">Âm thanh gốc - <%= user.name %><span
-                                                    class="jsx-1545465582">&nbsp;</span></p>
+                                                        class="jsx-1545465582">&nbsp;</span></p>
                                             <p class="jsx-1545465582">Âm thanh gốc - <%= user.name %><span
-                                                    class="jsx-1545465582">&nbsp;</span></p>
+                                                        class="jsx-1545465582">&nbsp;</span></p>
                                         </div>
                                     </div>
                                 </div>

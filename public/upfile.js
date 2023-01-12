@@ -1,11 +1,18 @@
 btnUpload.addEventListener('click', () => {
     inputUpload.click();
 })
-let url;
+let imgBlog;
 inputUpload.addEventListener('change', async () => {
+    if (player.src != '') {
+        var desertRef = firebase.storage().refFromURL(player.src)
+        desertRef.delete().then(() => {
+            console.log('ok');
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
     let file = inputUpload.files[0];
     let url1 = window.URL.createObjectURL(inputUpload.files[0])
-    console.log(file.name);
     // set loading
     box1.style.display = 'none';
     preview.style.display = 'none';
@@ -37,7 +44,7 @@ inputUpload.addEventListener('change', async () => {
         },
         async () => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                url = downloadURL;
+                let url = downloadURL;
                 // clear loading
                 preview.style.display = 'block';
                 box2.style.display = 'none';
@@ -91,13 +98,15 @@ function showImageAt(secs, url) {
                     showImageAt(secs, url);
                 } else {
                     let screen = document.querySelectorAll('.image-screen div');
-                    console.log(screen);
+                    let imgPart = document.querySelectorAll('.image-screen div img')
                     for (let i = 0; i < screen.length; i++) {
                         screen[i].addEventListener('click', () => {
                             for (let j = 0; j < screen.length; j++) {
                                 screen[j].classList.remove('image-click');
                             }
                             screen[i].classList.add('image-click');
+                            imgBlog = imgPart[i].src;
+                            // console.log(imgBlog);
                         })
                     }
                 };
@@ -137,34 +146,68 @@ boxProfile.addEventListener('mouseleave', () => {
 })
 send.addEventListener('submit', (e) => {
     e.preventDefault();
-    let data = {
-        url: player.src,
-        status: send.status.value,
-        like: 0,
-        share: 0,
-        provide: send.provide.value,
-        comment: send.comment.checked,
-        duet: send.duet.checked,
-        stitch: send.stitch.checked
-    }
-    if (data.url.indexOf('localhost:3000') != -1) {
-        alert('Hãy chọn 1 video để đăng lên');
-    } else {
-        fetch('/api/v1/blog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-            .then(async (res) => {
-                let mes = await res.json();
-                alert(`${mes.message}`);
-                if (mes.message == 'Create successfully') {
-                    window.location.href = "/";
+    let content = document.getElementsByClassName('content');
+    let user_id = content[0].classList[1].slice(4);
+    let fileName = new Date().getTime();
+    let uploadTask = firebase.storage().ref()
+        .child('test')
+        .child(`test${fileName}`)
+        .put(imgBlog);
+    uploadTask.on('state_changed',
+        (snapshot) => {
+
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            loading.innerText = progress.toFixed(1);
+            loadingRange.value = progress.toFixed(1);
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+        },
+        (error) => {
+            console.log(error);
+            // Handle unsuccessful uploads
+        },
+        async () => {
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                let url = downloadURL;
+                let data = {
+                    user_id: user_id,
+                    url: player.src,
+                    status: send.status.value,
+                    image_blog: url,
+                    like: 0,
+                    share: 0,
+                    provide: send.provide.value,
+                    comment: send.comment.checked,
+                    duet: send.duet.checked,
+                    stitch: send.stitch.checked
                 }
-            })
-    }
+                if (data.url.indexOf('localhost:3000') != -1) {
+                    alert('Hãy chọn 1 video để đăng lên');
+                } else {
+                    fetch('/api/v1/blog', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(async (res) => {
+                            let mes = await res.json();
+                            alert(`${mes.message}`);
+                            if (mes.message == 'Create successfully') {
+                                window.location.href = "/";
+                            }
+                        })
+                }
+            });
+        }
+    );
 })
 statusInput.addEventListener('input', () => {
     charInput.innerText = statusInput.value.length;
@@ -185,3 +228,12 @@ btnChange.addEventListener(('click'), () => {
     inputUpload.click();
 })
 
+logout.addEventListener('click', () => {
+    fetch('/api/v1/logout')
+        .then(async (res) => {
+            let mes = await res.json();
+            if (mes.message == 'Logout successfully') {
+                window.location.href = '/';
+            }
+        })
+})

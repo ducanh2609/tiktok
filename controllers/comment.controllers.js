@@ -2,9 +2,12 @@ const { postCommentSQL, findComment, findCountComment } = require('../models/com
 const jwt = require('jsonwebtoken');
 
 module.exports.postComment = async (req, res) => {
-    let [count] = await findCountComment();
-    console.log(count[0].count);
-    let arr = [+(count[0].count) + 1, ...Object.values(req.body)];
+    let [count] = await findComment();
+    let total = 0;
+    if (count.length != 0) {
+        total = +count.length;
+    }
+    let arr = [total + 1, ...Object.values(req.body)];
     await postCommentSQL(arr);
     res.json({ message: 'Comment successfully' })
 }

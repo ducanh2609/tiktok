@@ -17,3 +17,13 @@ switchBar.addEventListener('change', () => {
         body.style.color = 'white'
     }
 })
+
+logout.addEventListener('click', () => {
+    fetch('/api/v1/logout')
+        .then(async (res) => {
+            let mes = await res.json();
+            if (mes.message == 'Logout successfully') {
+                window.location.href = '/';
+            }
+        })
+})  

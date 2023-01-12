@@ -2,7 +2,7 @@ const { findAllUser } = require('../models/models.js');
 const { getAllUser, getAllBlog, getBlogLike, getCountBlogLike } = require('../controllers/controllers.js');
 const { getCountComment } = require('../controllers/comment.controllers.js');
 
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 
 
@@ -25,25 +25,27 @@ module.exports.checkExitsUser = async (req, res, next) => {
             }
     }
 }
+module.exports.checkExitsUserLogin = async (req, res, next) => {
+    let [record] = await findAllUser()
+    let user = record.find(item => item.username == req.body.username && item.password == req.body.password);
+    if (user != undefined) {
+        req.user_id = user.user_id;
+        next();
+    } else res.json({ message: "User not found" });
+}
+
+
 
 module.exports.checkExitsLogin = async (req, res, next) => {
-    let data = req.body;
-    console.log(data);
+    let { userId } = req.session;
     let [record] = await findAllUser();
-    console.log(record);
-    let user;
-    for (let i = 0; i < record.length; i++) {
-        if (record[i].username == data.username && record[i].password == data.password) {
-            user = record[i];
-            break;
-        }
-    }
+    let user = record.find(item => item.user_id == userId);
     if (user) next()
     else res.json({ message: "Acount doesn't exists" });
 }
 
 module.exports.isAuth = async (req, res, next) => {
-    let { username } = req.cookies;
+    let { userId } = req.session;
     let record = await getAllUser();
     let blog = await getAllBlog();
     let blogLike = await getBlogLike();
@@ -53,7 +55,7 @@ module.exports.isAuth = async (req, res, next) => {
         return arr
     }, [])
     let totalComment = await getCountComment();
-    if (username) next()
+    if (userId) next()
     else res.render('home', {
         user: { username: undefined, follow: [] },
         allUsers: record,

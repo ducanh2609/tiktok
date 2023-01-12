@@ -15,8 +15,8 @@
 <body>
     <div class="page">
         <div class="page-left totalBlog<%= allBlog %>">
-            <video controls loop src="<%= blog.url %>"></video>
-            <div class="close user<%= user.user_id %>" id="btnClose"><i class="fa-solid fa-xmark fa-2x"></i></div>
+            <video controls autoplay muted loop src="<%= blog.url %>"></video>
+            <div class="close user<%= user.tiktok_id %>" id="btnClose"><i class="fa-solid fa-xmark fa-2x"></i></div>
             <div class="logo"><img src="/Image/tiktok_logo.webp" alt=""></div>
             <div class="report"><i class="fa-solid fa-flag"></i>Báo cáo</div>
             <div class="down" id="down"><i class="fa-solid fa-chevron-down fa-lg"></i></div>
@@ -38,7 +38,7 @@
                     </span>
                     <span>.</span>
                     <span class="time" style="font-size: 14px;">
-                        <%= blog.time %> - <%= blog.hour %>
+                        <%= blog.time %>
                     </span>
                 </div>
 
@@ -66,14 +66,16 @@
                 <div class="blog-status">Test nhé &#128512;</div>
                 <div class="btn-contact">
                     <input id="link" type="text" name="" id="" disabled
-                        value="http://localhost:3000/@<%= blog.tiktok_id %>">
+                        value=''>
                     <button class="copy-link" id="copyLink">
                         <h3>Sao chép liên kết</h3>
                     </button>
                 </div>
             </div>
             <div class="comment-content" id="commentContent">
-                <% for(let i=0; i < comment.length; i++) { %>
+                <% if(comment.length == 0) { %>
+                    <div style="text-align: center;">Hãy là người bình luận đầu tiên</div>
+                <% } else { for(let i=0; i < comment.length; i++) { %>
                     <div class="comment-part">
                         <div class="user-cmt-image">
                             <img src="<%= comment[i].image %>" alt="">
@@ -96,10 +98,10 @@
                             <i class="fa-regular fa-heart"></i>
                         </div>
                     </div>
-                    <% } %>
+                    <% } }%>
 
             </div>
-            <form class="input-send blog<%= blog.user_id %> user<%= user.user_id %>" id="sendForm">
+            <form class="input-send blog<%= blog.blog_id %> user<%= user.user_id %>" id="sendForm">
                 <div class="input-div">
                     <input id="commentInput" name="content" type="text" placeholder="Thêm bình luận...">
                     <div class="user-link">@</div>

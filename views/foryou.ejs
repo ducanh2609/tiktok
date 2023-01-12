@@ -26,8 +26,8 @@
                             <h4></h4>
                         </a></div>
                 </div>
-                <% if(user.follow) {
-                if(user.follow.indexOf(blog[i].user_id)==-1 && blog[i].username !=user.username) { %>
+                <% if(user.follow) { if(user.follow.indexOf(blog[i].user_id)==-1 && blog[i].username !=user.username) {
+                    %>
                     <div class="note-follow">
                         <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow">
                             <h4>Follow</h4>
@@ -39,21 +39,20 @@
                                 <h4>Đang Follow</h4>
                             </button>
                         </div>
-                        <% } 
-                    } else { %>
-                        <div class="note-follow">
-                            <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow">
-                                <h4>Follow</h4>
-                            </button>
-                        </div>
-                        <% } %>
+                        <% } } else { %>
+                            <div class="note-follow">
+                                <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow">
+                                    <h4>Follow</h4>
+                                </button>
+                            </div>
+                            <% } %>
 
 
 
             </div>
             <div class="note-url">
-                <video controls width="350" height="550">
-                    <source src="<%= blog[i].url %>" type="video/webm" loop="">
+                <video width="350" height="550" controls autoplay muted loop>
+                    <source src="<%= blog[i].url %>" type="video/webm">
                 </video>
                 <div class="contact">
                     <% let flag=false; for(let j=0; j< allLike.length;j++) { if(allLike[j].user_id==user.user_id &&
@@ -70,28 +69,26 @@
                                     <% if(like[1].indexOf(blog[i].blog_id)==-1) { %>
                                         0
                                         <% } else { for(let j=0; j< like[0].length; j++) {
-                                        if(like[0][j].blog_id==blog[i].blog_id) { %>
+                                            if(like[0][j].blog_id==blog[i].blog_id) { %>
                                             <%= like[0][j].like %>
-                                        <% break; } } } %>
+                                                <% break; } } } %>
                                 </span>
                                 <span class="btn-comment"><a href="/comment/<%= blog[i].blog_id %>/home"
                                         style="color:white"><i class="fa-regular fa-comment-dots fa-2x"></i></a></span>
-                            <% let flag1=false; let index; for(let j=0; j< totalComment.length;j++) { 
-                                if(totalComment[j].blog_id==blog[i].blog_id) {
-                                     flag1=true; index = j; break; 
-                                } 
-                            } 
-                            if(flag1) { %>
-                                <span>
-                                    <%= totalComment[index].count %>
-                                </span>
-                            <% } else { %>
-                                    <span>0</span>
-                            <% } %>
-                                <span class="btn-share"><i class="fa-sharp fa-solid fa-share fa-2x"></i></span>
-                                <span>
-                                    <%= blog[i].share %>
-                                </span>
+                                <% let flag1=false; let index; for(let j=0; j< totalComment.length;j++) {
+                                    if(totalComment[j].blog_id==blog[i].blog_id) { flag1=true; index=j; break; } }
+                                    if(flag1) { %>
+                                    <span>
+                                        <%= totalComment[index].count %>
+                                    </span>
+                                    <% } else { %>
+                                        <span>0</span>
+                                        <% } %>
+                                            <span class="btn-share"><i
+                                                    class="fa-sharp fa-solid fa-share fa-2x"></i></span>
+                                            <span>
+                                                <%= blog[i].share %>
+                                            </span>
                 </div>
             </div>
         </div>

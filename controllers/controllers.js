@@ -16,17 +16,17 @@ module.exports.getAllUser = async (req, res) => {
     return record;
 }
 module.exports.postBlog = async (req, res) => {
-    let { username } = req.cookies;
-    let token = jwt.verify(username, 'token');
-    console.log(token);
-    let [record] = await findAllUser();
-    console.log(record);
-    let user = record.find(item => item.username == token.username);
-    console.log(user);
     let [data] = await findAllBlog();
-    let { url, status, like, share, provide, comment, duet, stitch } = req.body;
-    let arr = [data.length + 1, user.user_id, url, status, like, share, ""];
-    console.log(arr);
+    let blogID = data.reduce((arr, item) => {
+        arr.push(item.blog_id);
+        return arr;
+    }, [])
+    let blogMax = 0;
+    if (blogID.length != 0) {
+        blogMax = +blogID.reduce((acc, val) => (acc > val) ? acc : val);
+    }
+    let { user_id, url, status, image_blog, like, share, provide, comment, duet, stitch } = req.body;
+    let arr = [blogMax + 1, user_id, url, status, image_blog, provide, comment, duet, stitch, ""];
     await postBlogSQL(arr);
     res.json({ message: 'Create successfully' })
 }
@@ -37,10 +37,13 @@ module.exports.getAllBlog = async (req, res) => {
 }
 
 module.exports.putImage = async (req, res) => {
-    let data = req.body
-    let arr = [data.image, data.tiktokid, data.name, data.story, req.params.id]
+    let data = req.body;
+    let arr = [data.image, data.tiktokid, data.name, data.story, req.params.TikTokID]
     await putImageSQL(arr);
-    res.json({ message: 'Update successfully' })
+    res.json({
+        message: 'Update successfully',
+        href: data.tiktokid
+    })
 }
 module.exports.getOneFollow = async (id) => {
     let [record] = await findOneFollow(id)

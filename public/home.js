@@ -185,3 +185,26 @@ for (let i = 0; i < btnLike.length; i++) {
         }
     })
 }
+
+logout.addEventListener('click', () => {
+    fetch('/api/v1/logout')
+        .then(async (res) => {
+            let mes = await res.json();
+            if (mes.message == 'Logout successfully') {
+                window.location.href = '/';
+            }
+        })
+})
+
+
+fetch('/api/v1/search')
+    .then(async (res) => {
+        let data = await res.json();
+        console.log(data);
+        inputSearch.addEventListener('input', () => {
+            
+        })
+    })
+
+
+

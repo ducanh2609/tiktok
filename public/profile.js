@@ -6,53 +6,57 @@ boxProfile.addEventListener('mouseleave', () => {
         boxProfile.style.display = 'none'
     }, 1500)
 })
+let btnChange = document.getElementById('btnChange');
+let cancel = document.getElementById('cancel');
+let btnSave = document.getElementById('btnSave');
 
-btnChange.addEventListener('click', () => {
-    changeMotal.style.display = 'block';
-    changeBackground.style.display = 'block';
-    charInput.innerText = storyInput.value.length;
-})
-let cancel = [iconClose, btnCancel];
-for (let i = 0; i < cancel.length; i++) {
-    cancel[i].addEventListener('click', () => {
-        changeMotal.style.display = 'none';
-        changeBackground.style.display = 'none';
+if (btnChange && cancel && btnSave) {
+    btnChange.addEventListener('click', () => {
+        changeMotal.style.display = 'block';
+        changeBackground.style.display = 'block';
+        charInput.innerText = storyInput.value.length;
     })
-}
-let arr = [imageChange, idInput, nameInput, storyInput];
-for (let i = 0; i < arr.length; i++) {
-    arr[i].addEventListener('input', () => {
-        idChange.innerText = idInput.value;
-        btnSave.disabled = false;
-        btnSave.style['background-color'] = 'rgba(255,59,92,1)';
-        btnSave.style['color'] = 'white';
-
-    })
-}
-btnSave.addEventListener('click', () => {
-    // console.log(SQLUsername.href.slice(30));
-    let data = {
-        image: imageChange.src,
-        tiktokid: idInput.value,
-        name: nameInput.value,
-        story: storyInput.value
-    }
-    fetch(`/profile/${SQLUsername.href.slice(30)}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-        .then(async (res) => {
-            let mess = await res.json();
-            alert(mess.message);
-            if (mess.message == 'Update successfully') {
-                console.log(SQLUsername.href);
-                window.location.href = SQLUsername.href;
-            }
+    let cancel = [iconClose, btnCancel];
+    for (let i = 0; i < cancel.length; i++) {
+        cancel[i].addEventListener('click', () => {
+            changeMotal.style.display = 'none';
+            changeBackground.style.display = 'none';
         })
-})
+    }
+    let arr = [imageChange, idInput, nameInput, storyInput];
+    for (let i = 0; i < arr.length; i++) {
+        arr[i].addEventListener('input', () => {
+            idChange.innerText = idInput.value;
+            btnSave.disabled = false;
+            btnSave.style['background-color'] = 'rgba(255,59,92,1)';
+            btnSave.style['color'] = 'white';
+
+        })
+    }
+    btnSave.addEventListener('click', () => {
+        // console.log(SQLUsername.href.slice(30));
+        let data = {
+            image: imageChange.src,
+            tiktokid: idInput.value,
+            name: nameInput.value,
+            story: storyInput.value
+        }
+        fetch(`/profile/${SQLUsername.href.slice(30)}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(async (res) => {
+                let mess = await res.json();
+                alert(mess.message);
+                if (mess.message == 'Update successfully') {
+                    window.location.href = `/profile/@${mess.href}`;
+                }
+            })
+    })
+}
 storyInput.addEventListener('input', () => {
     charInput.innerText = storyInput.value.length;
 })
@@ -122,12 +126,23 @@ let videoLiker = document.getElementsByClassName('video-path-like');
 for (let i = 0; i < video.length; i++) {
     video[i].addEventListener('click', () => {
         let blog_id = video[i].classList[1].slice(4);
-        window.location.href = `/comment/${blog_id}/userlike`;
+        let sub = video[i].classList[2].slice(3);
+        window.location.href = `/comment/${blog_id}/userlike-${sub}`;
     })
 }
 for (let i = 0; i < videoLiker.length; i++) {
     videoLiker[i].addEventListener('click', () => {
         let blog_id = videoLiker[i].classList[1].slice(8);
-        window.location.href = `/comment/${blog_id}/userlike`;
+        let subLike = vidvideoLikereo[i].classList[2].slice(7);
+        window.location.href = `/comment/${blog_id}/userlike-${subLike}`;
     })
 }
+logout.addEventListener('click', () => {
+    fetch('/api/v1/logout')
+        .then(async (res) => {
+            let mes = await res.json();
+            if (mes.message == 'Logout successfully') {
+                window.location.href = '/';
+            }
+        })
+})

@@ -40,14 +40,16 @@ loginForm.addEventListener('submit', (e) => {
         })
             .then(async (res) => {
                 let mes = await res.json();
-                if (mes.message == "Acount doesn't exists") {
+                if (mes.message == "User not found") {
                     alert(mes.message)
                 } else {
-                    let token = mes.message;
-                    const d = new Date();
-                    d.setTime(d.getTime() + (90 * 24 * 60 * 60 * 1000));
-                    let expires = "expires=" + d.toUTCString();
-                    document.cookie = 'username' + "=" + token + ";" + expires + ";path=/";
+                    alert(mes.message);
+
+                    //         let token = mes.message;
+                    //         const d = new Date();
+                    //         d.setTime(d.getTime() + (90 * 24 * 60 * 60 * 1000));
+                    //         let expires = "expires=" + d.toUTCString();
+                    //         document.cookie = 'username' + "=" + token + ";" + expires + ";path=/";
                     window.location.href = '/';
                 }
             })

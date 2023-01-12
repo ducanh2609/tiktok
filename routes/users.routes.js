@@ -2,15 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { getAllUser, postBlog, getAllBlog, getOneFollow, getCountBlogLike, getBlogLike } = require('../controllers/controllers.js');
 const { getCountComment } = require('../controllers/comment.controllers.js');
-const { checkExitsUser, isAuth } = require('../middlewares/middlewares.js');
-const jwt = require('jsonwebtoken');
+const { checkExitsUser, checkExitsLogin, isAuth } = require('../middlewares/middlewares.js');
+// const jwt = require('jsonwebtoken');
 
-router.get('/', isAuth, async (req, res) => {
-    let { username } = req.cookies;
+router.get('/', isAuth, checkExitsLogin, async (req, res) => {
+    let { userId } = req.session;
     let record = await getAllUser();
     let blog = await getAllBlog();
-    let token = jwt.verify(username, 'token');
-    let user = record.find(item => item.username == token.username);
+    let user = record.find(item => item.user_id == userId);
     let blogLike = await getBlogLike();
     let countLike = await getCountBlogLike();
     let countValue = countLike.reduce((arr, item) => {
@@ -32,12 +31,11 @@ router.get('/', isAuth, async (req, res) => {
         totalComment: totalComment
     })
 })
-router.get('/following', isAuth, async (req, res) => {
-    let { username } = req.cookies;
+router.get('/following', isAuth, checkExitsLogin, async (req, res) => {
+    let { userId } = req.session;
     let record = await getAllUser();
     let blog = await getAllBlog();
-    let token = jwt.verify(username, 'token');
-    let user = record.find(item => item.username == token.username);
+    let user = record.find(item => item.user_id == userId);
     let follow = await getOneFollow(user.user_id);
     user.follow = follow;
     res.render('following', {
@@ -49,21 +47,19 @@ router.get('/following', isAuth, async (req, res) => {
 })
 
 
-router.get('/upfile', isAuth, async (req, res) => {
-    let { username } = req.cookies;
-    let token = jwt.verify(username, 'token');
+router.get('/upfile', isAuth, checkExitsLogin, async (req, res) => {
+    let { userId } = req.session;
     let record = await getAllUser();
-    let user = record.find(item => item.username == token.username);
+    let user = record.find(item => item.user_id == userId);
     res.render('upfile', {
         user: user
     })
 })
 
-router.get('/chat', isAuth, async (req, res) => {
-    let { username } = req.cookies;
-    let token = jwt.verify(username, 'token');
+router.get('/chat', isAuth, checkExitsLogin, async (req, res) => {
+    let { userId } = req.session;
     let record = await getAllUser();
-    let user = record.find(item => item.username == token.username);
+    let user = record.find(item => item.user_id == userId);
     res.render('chat', {
         user: user
     })
@@ -72,6 +68,26 @@ router.get('/chat', isAuth, async (req, res) => {
 
 
 router.post('/api/v1/blog', postBlog)
+
+
+router.get('/api/v1/search', async (req, res) => {
+    let user = await getAllUser();
+    let ticktokID = user.reduce((arr, item) => {
+        arr.push(item.tiktok_id);
+        return arr;
+    }, [])
+    res.json({
+        data: user,
+        ticktokID: ticktokID
+    })
+})
+
+
+
+
+
+
+
 
 
 
@@ -113,8 +129,10 @@ function converTimePart(param) {
         param.time = 'khoảng vài phút trước';
     } else if (min >= 1) {
         param.time = 'khoảng 1 phút trước';
-    } else if (min < 1) {
-        param.time = 'khoảng vài giây trước';
+    } else if ((hieu / 1000) >= 30) {
+        param.time = 'khoảng nửa phút trước';
+    } else {
+        param.time = 'Vừa xong';
     }
 }
 function convertTime(param) {

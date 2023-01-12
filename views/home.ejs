@@ -19,7 +19,20 @@
                 <img src="/Image/logo.png" alt="">
             </a>
             <div class="search">
-                <input class="input-search" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <input class="input-search" id="inputSearch" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <div class="search-box">
+
+
+                    <div class="search-user">
+                        <div class="search-image"></div>
+                        <div class="search-infor">
+                            <div class="search-tiktokId"></div>
+                            <div class="search-name"></div>
+                        </div>
+                    </div>
+
+
+                </div>
                 <button class="btn-search">
                     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 </button>
@@ -48,7 +61,7 @@
 
                     </div>
                     <div class="box-profile" id="boxProfile" style="display: none;">
-                        <div><a href="/profile/<%= user.user_id %>">
+                        <div><a href="/profile/@<%= user.tiktok_id %>">
                                 <i class="fa-solid fa-user"></i>
                                 <h4>Xem hồ sơ</h4>
                             </a>
@@ -90,7 +103,7 @@
                             </a>
 
                         </div>
-                        <div><a href=""><i class="fa-solid fa-right-from-bracket"></i>
+                        <div id="logout"><a><i class="fa-solid fa-right-from-bracket"></i>
                                 <h4>Đăng xuất</h4>
                             </a>
                         </div>
@@ -104,7 +117,7 @@
                 <a href="/" class="for-you-select" style="color: rgb(254, 44, 85)">
                     <i class="fa-solid fa-house fa-lg"></i>
                     <h2>Dành cho bạn</h2>
-                </a> 
+                </a>
                 <a href="/following" class="for-you-select">
                     <i class="fa-solid fa-user-group fa-lg"></i>
                     <h2>Đang Follow</h2>
@@ -127,7 +140,8 @@
                             <h4>Tài khoản được đề xuất</h4>
                         </div>
                         <% for(let i=0; i < allUsers.length; i++) { %>
-                            <% if(allUsers[i].username !=user.username && user.follow.indexOf(allUsers[i].user_id) == -1) { %>
+                            <% if(allUsers[i].username !=user.username && user.follow.indexOf(allUsers[i].user_id)==-1)
+                                { %>
                                 <div class="user-acount">
                                     <div class="user-avatar">
                                         <img src="<%= allUsers[i].image %>" alt="">
@@ -159,28 +173,32 @@
                             <div style="height: 30px;">
                                 <h4>Các tài khoản đang follow</h4>
                             </div>
-                            <% for(let i = 0; i< allUsers.length; i++) { 
-                                if(user.follow.indexOf(allUsers[i].user_id) != -1) { %>
-                            <div class="user-acount">
-                                <div class="user-avatar">
-                                    <img src="<%= allUsers[i].image %>" alt="">
-                                </div>
-                                <div class="user-infor">
-                                    <div class="username">
-                                        <h4><%= allUsers[i].username %></h4>
+                            <% for(let i=0; i< allUsers.length; i++) { if(user.follow.indexOf(allUsers[i].user_id) !=-1)
+                                { %>
+                                <div class="user-acount">
+                                    <div class="user-avatar">
+                                        <img src="<%= allUsers[i].image %>" alt="">
                                     </div>
-                                    <div class="name"><%= allUsers[i].name %></div>
+                                    <div class="user-infor">
+                                        <div class="username">
+                                            <h4>
+                                                <%= allUsers[i].username %>
+                                            </h4>
+                                        </div>
+                                        <div class="name">
+                                            <%= allUsers[i].name %>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <% } } %>
-                            <% if(user.follow.length > 5) { %>
-                            <div class="view-all" id="allFollow">
-                                <h4>Xem thêm</h4>
-                            </div>
-                            <div class="view-back" id="backFollow" style="display:none">
-                                <h4>Thu gọn</h4>
-                            </div>
-                            <% } %>
+                                <% } } %>
+                                    <% if(user.follow.length> 5) { %>
+                                        <div class="view-all" id="allFollow">
+                                            <h4>Xem thêm</h4>
+                                        </div>
+                                        <div class="view-back" id="backFollow" style="display:none">
+                                            <h4>Thu gọn</h4>
+                                        </div>
+                                        <% } %>
 
                         </div>
                         <% } %>

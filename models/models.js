@@ -1,4 +1,4 @@
-const db = require('../utils/db.js');
+const { db } = require('../utils/db.js');
 
 module.exports.findAllUser = () => {
     let sql = `SELECT t1.user_id, t1.username, t1.email, t1.password, t2.name, t2.tiktok_id, t2.image, t2.story FROM tick_tok.users AS t1, tick_tok.user_profile AS t2
@@ -18,12 +18,12 @@ module.exports.findAllBlog = () => {
     return db.execute(sql)
 }
 module.exports.postBlogSQL = (arr) => {
-    let sql = `INSERT INTO blogs VALUES(1,?,?,?,default)`;
+    let sql = `INSERT INTO blogs VALUES(?,?,?,?,?,?,?,?,?,default)`;
     return db.query(sql, arr)
 }
 
 module.exports.putImageSQL = (arr) => {
-    let sql = `UPDATE user_profile SET image= ?, tiktok_id = ?, name = ?, story = ? WHERE user_id = ?`;
+    let sql = `UPDATE user_profile SET image= ?, tiktok_id = ?, name = ?, story = ? WHERE tiktok_id = ?`;
     return db.query(sql, arr)
 }
 module.exports.findOneFollow = (id) => {

@@ -24,7 +24,7 @@
                     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 </button>
             </div>
-            <% if(!user.username) { %>
+            <% if(!userCurrent.username) { %>
                 <a href="/login" class="login">
                     <button class="login-btn">
                         <h3>Đăng nhập</h3>
@@ -43,12 +43,12 @@
                             <i class="fa-regular fa-message fa-lg"></i>
                         </a>
                         <div class="user-profile-tool" id="profile">
-                            <img src="<%= user.image %>" alt="">
+                            <img src="<%= userCurrent.image %>" alt="">
                         </div>
 
                     </div>
                     <div class="box-profile" id="boxProfile" style="display: none;">
-                        <div><a href="/profile/<%= user.user_id %>" id="SQLUsername">
+                        <div><a href="/profile/@<%= userCurrent.tiktok_id %>" id="SQLUsername">
                                 <i class="fa-solid fa-user"></i>
                                 <h4>Xem hồ sơ</h4>
                             </a>
@@ -90,7 +90,7 @@
                             </a>
 
                         </div>
-                        <div><a href=""><i class="fa-solid fa-right-from-bracket"></i>
+                        <div id="logout"><a><i class="fa-solid fa-right-from-bracket"></i>
                                 <h4>Đăng xuất</h4>
                             </a>
                         </div>
@@ -120,7 +120,7 @@
                 <div style="height: 20px;">
                     <h4>Các tài khoản đang follow</h4>
                 </div>
-                <% for(let i=0; i< allUsers.length; i++) { if(user.follow.indexOf(allUsers[i].user_id) !=-1) { %>
+                <% for(let i=0; i< allUsers.length; i++) { if(userCurrent.follow.indexOf(allUsers[i].user_id) !=-1) { %>
                     <div class="user-acount">
                         <div class="user-avatar">
                             <img src="<%= allUsers[i].image %>" alt="">
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <% } } %>
-                        <% if(user.follow.length> 5) { %>
+                        <% if(userCurrent.follow.length> 5) { %>
                             <div class="view-all" id="allFollow">
                                 <h4>Xem thêm</h4>
                             </div>
@@ -235,11 +235,13 @@
                                     <%= user.name %>
                                 </h3>
                             </div>
+                            <% if(user.user_id == userCurrent.user_id) { %>
                             <div class="infor-btn-change" id="btnChange">
                                 <button><i class="fa-sharp fa-solid fa-pen-to-square fa-2x"></i>
                                     <h3>Sửa hồ sơ</h3>
                                 </button>
                             </div>
+                            <% } %> 
                         </div>
                     </div>
                     <div class="profile2">
@@ -296,7 +298,7 @@
                     <div class="content-video" id="contentVideo" style="visibility:visible;">
 
                         <% for(let i=0; i< blog.length;i++) { %>
-                            <div class="video-path blog<%= blog[i].blog_id %>">
+                            <div class="video-path blog<%= blog[i].blog_id %> sub<%= user.tiktok_id %>">
                                 <div>
                                     <video controls src="<%= blog[i].url %>" loop>
                                     </video>
@@ -311,7 +313,7 @@
                     <div class="content-like" id="contentLike" style="visibility:hidden;">
 
                         <% for(let i=0; i< oneLike.length;i++) { %>
-                            <div class="video-path-like bloglike<%= oneLike[i].blog_id %>">
+                            <div class="video-path-like bloglike<%= oneLike[i].blog_id %> subLike<%= user.tiktok_id %>">
                                 <div>
                                     <video controls src="<%= oneLike[i].url %>" loop>
                                     </video>

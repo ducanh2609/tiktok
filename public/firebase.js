@@ -1,10 +1,10 @@
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyBQjnjcupiCQ7k6KWcjs7kFz0ZCAzoynWY",
-    authDomain: "tick-tok-9a45c.firebaseapp.com",
-    projectId: "tick-tok-9a45c",
-    storageBucket: "tick-tok-9a45c.appspot.com",
-    messagingSenderId: "57244320399",
-    appId: "1:57244320399:web:9cacc7db499fa0e36fe6fa"
+    apiKey: "AIzaSyALtvxT5xhTn8w9nWhu61hMx0jNb7eKQp4",
+    authDomain: "tik-tok-85f83.firebaseapp.com",
+    projectId: "tik-tok-85f83",
+    storageBucket: "tik-tok-85f83.appspot.com",
+    messagingSenderId: "3782109020",
+    appId: "1:3782109020:web:37cb0fe9ce35c0cfc54399"
 });
 // let storageRef = firebase.storage().ref()
 
