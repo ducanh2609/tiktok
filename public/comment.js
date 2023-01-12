@@ -136,23 +136,28 @@ for (let i = 0; i < emojiChoise.length; i++) {
 let pageLeft = document.getElementsByClassName('page-left');
 let totalBlog = +pageLeft[0].classList[1].slice(9);
 let blogID = window.location.href.slice(30);
+let index = blogID.search('/');
+let end = blogID.slice(index);
 if (blogID.includes('userlike')) {
-    blogID = +blogID.slice(-blogID.length, -9);
+    blogID = +blogID.slice(0, index);
     down.addEventListener('click', () => {
-        window.location.href = `/comment/${blogID + 1}/userlike`;
+        window.location.href = `/comment/${blogID + 1}${end}`;
     })
     up.addEventListener('click', () => {
-        window.location.href = `/comment/${blogID - 1}/userlike`;
+        window.location.href = `/comment/${blogID - 1}${end}`;
     })
 } else if (blogID.includes('home')) {
-    blogID = +blogID.slice(-blogID.length, -5);
+    blogID = +blogID.slice(0, index);
     down.addEventListener('click', () => {
-        window.location.href = `/comment/${blogID + 1}/home`;
+        window.location.href = `/comment/${blogID + 1}${end}`;
     })
     up.addEventListener('click', () => {
-        window.location.href = `/comment/${blogID - 1}/home`;
+        window.location.href = `/comment/${blogID - 1}${end}`;
     })
 }
+
+
+
 if (blogID > 1) {
     up.style.display = 'block';
 }

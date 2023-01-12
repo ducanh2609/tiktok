@@ -19,7 +19,8 @@
                 <img src="/Image/logo.png" alt="">
             </a>
             <div class="search">
-                <input class="input-search" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <input class="input-search" id="inputSearch" type="text" placeholder="Tìm kiếm tài khoản và video">
+                <div class="search-box" id="searchBox"></div>
                 <button class="btn-search">
                     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 </button>
@@ -235,13 +236,13 @@
                                     <%= user.name %>
                                 </h3>
                             </div>
-                            <% if(user.user_id == userCurrent.user_id) { %>
-                            <div class="infor-btn-change" id="btnChange">
-                                <button><i class="fa-sharp fa-solid fa-pen-to-square fa-2x"></i>
-                                    <h3>Sửa hồ sơ</h3>
-                                </button>
-                            </div>
-                            <% } %> 
+                            <% if(user.user_id==userCurrent.user_id) { %>
+                                <div class="infor-btn-change" id="btnChange">
+                                    <button><i class="fa-sharp fa-solid fa-pen-to-square fa-2x"></i>
+                                        <h3>Sửa hồ sơ</h3>
+                                    </button>
+                                </div>
+                                <% } %>
                         </div>
                     </div>
                     <div class="profile2">
@@ -298,6 +299,7 @@
                     <div class="content-video" id="contentVideo" style="visibility:visible;">
 
                         <% for(let i=0; i< blog.length;i++) { %>
+
                             <div class="video-path blog<%= blog[i].blog_id %> sub<%= user.tiktok_id %>">
                                 <div>
                                     <video controls src="<%= blog[i].url %>" loop>
@@ -351,7 +353,6 @@
                         <input type="range" name="" min="0" max="100" id="loadingRange" style="margin: 10px 0;"
                             value="0">
                     </div>
-
                 </div>
             </div>
             <div class="profile-id">
