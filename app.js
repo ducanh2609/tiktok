@@ -7,8 +7,26 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { sessionStore } = require('./utils/db.js')
 
+const { postComment, getSocket } = require('./controllers/comment.controllers.js');
+
+
 var upload = multer();
-var app = express();
+const app = express();
+
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+io.sockets.on('connection', (socket) => {
+    console.log('a user connected');
+    // console.log(socket.id);
+
+
+})
+
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,6 +34,10 @@ app.use(upload.array());
 app.use(express.static("public"));
 app.use(cookieParser());
 // app.use(morgan());
+
+
+
+
 
 app.set('view engine', 'ejs');
 app.use(session({
@@ -45,4 +67,13 @@ const profileRouters = require("./routes/profile.routes.js");
 app.use('/', profileRouters);
 
 
-app.listen(3000);
+app.get('/socket', getSocket);
+app.post('/api/v1/comment', async (req, res) => {
+    let comment = await postComment(req, res);
+    // console.log(comment);
+    io.sockets.emit('comment', comment);
+    res.json({ message: 'Comment successfully' })
+})
+
+
+http.listen(3000);

@@ -40,14 +40,89 @@
                         <a href="/chat" class="chat-tool" id="chat">
                             <i class="fa-regular fa-paper-plane fa-lg"></i>
                         </a>
-                        <a href="/message" class="message-tool" id="message">
+                        <a class="message-tool" id="message">
                             <i class="fa-regular fa-message fa-lg"></i>
                         </a>
                         <div class="user-profile-tool" id="profile">
                             <img src="<%= user.image %>" alt="">
                         </div>
-
                     </div>
+                    <!-- Bảng thông báo -->
+                    <div class="message-box" id="messageBox">
+                        <div class="message-menu">
+                            <h2>Thông báo</h2>
+                            <div class="message-table" style="margin-top: 15px;">
+                                <div>
+                                    <div>Tất cả hoạt động</div>
+                                    <div>Thích</div>
+                                    <div>Bình luận </div>
+                                </div>
+                                <div>
+                                    <div>Lượt nhắc đến và lượt gắn thẻ</div>
+                                    <div>Follower</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="message-content">
+
+                            <div class="message-part">
+                                <div class="message-img">
+                                    <img src="/Image/anh-naruto-chibi-2.jpg" alt="">
+                                </div>
+                                <div class="message-infor">
+                                    <div class="message-tiktokID">
+                                        <h4>nguoila08</h4>
+                                    </div>
+                                    <div class="message-text">Đã thích bình luận của bạn. <span
+                                            class="span">2022-10-10</span></div>
+                                    <div class="message-comment"><span>dzking9x_dx: cảng minato à emaaaaaaaaaa</span>
+                                    </div>
+                                </div>
+                                <div class="message-img-blog">
+                                    <img src="/Image/anh-naruto-chibi-2.jpg" alt="">
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="message-part part-follow">
+                                <div class="message-img">
+                                    <img src="/Image/anh-naruto-chibi-2.jpg" alt="">
+                                </div>
+                                <div class="message-infor">
+                                    <div class="message-tiktokID">
+                                        <h4>doan388</h4>
+                                    </div>
+                                    <div class="message-text">Follow bạn. <span class="span">2022-10-10</span>
+                                    </div>
+                                </div>
+                                <div class="message-button">
+                                    <button>Follow lại</button>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- Bảng công cụ người dùng -->
                     <div class="box-profile" id="boxProfile" style="display: none;">
                         <div><a href="/profile/@<%= user.tiktok_id %>">
                                 <i class="fa-solid fa-user"></i>
@@ -137,7 +212,7 @@
                                     <div class="user-infor">
                                         <div class="username">
                                             <h4>
-                                                <%= allUsers[i].username %>
+                                                <%= allUsers[i].tiktok_id %>
                                             </h4>
                                         </div>
                                         <div class="name">
@@ -170,7 +245,7 @@
                                     <div class="user-infor">
                                         <div class="username">
                                             <h4>
-                                                <%= allUsers[i].username %>
+                                                <%= allUsers[i].tiktok_id %>
                                             </h4>
                                         </div>
                                         <div class="name">

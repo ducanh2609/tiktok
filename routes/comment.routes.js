@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { getAllUser, getAllBlog, getOneFollow } = require('../controllers/controllers.js');
-const { postComment, getComment } = require('../controllers/comment.controllers.js');
+const { postComment, getComment, getSocket } = require('../controllers/comment.controllers.js');
 const { checkExitsUser, checkExitsLogin, isAuth } = require('../middlewares/middlewares.js');
-// const jwt = require('jsonwebtoken');
 
 
-router.post('/api/v1/comment', postComment)
+
 
 router.get('/comment/:id/:content', isAuth, checkExitsLogin, async (req, res) => {
     let { userId } = req.session;
@@ -68,7 +67,7 @@ function converTimePart(param) {
         param.time = 'khoảng vài phút trước';
     } else if (min >= 1) {
         param.time = 'khoảng 1 phút trước';
-    } else if ((hieu/1000) >= 30) {
+    } else if ((hieu / 1000) >= 30) {
         param.time = 'khoảng nửa phút trước';
     } else {
         param.time = 'Vừa xong';

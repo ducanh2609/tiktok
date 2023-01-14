@@ -1,3 +1,4 @@
+
 link.value = window.location.href;
 
 
@@ -93,6 +94,57 @@ copyLink.addEventListener('click', () => {
     document.body.removeChild(input);
 })
 
+// Socket realtime
+let blog = +(sendForm.classList[1].slice(4));
+
+var socket = io();
+socket.on("connect", () => {
+    console.log('connected');
+});
+socket.on('comment', (data) => {
+    addMessage(data, blog)
+});
+
+function addMessage(comment, blog) {
+    if (comment[0].blog_id == blog) {
+        let result = `
+        <div class="comment-part">
+            <div class="user-cmt-image">
+                <img src="${comment[0].image}" alt="">
+            </div>
+            <div class="user-cmt-profile">
+                <div class="username">
+                    <h3>
+                        ${comment[0].tiktok_id}
+                    </h3>
+                </div>
+                <div class="content" style="font-size: 14px;">
+                    ${comment[0].content}
+                </div>
+                <div class="time" style="font-size: 12px; color: rgb(113, 115, 116);">
+                    ${comment[0].time}
+                </div>
+            </div>
+            <div class="btn-like">
+                <i class="fa-solid fa-ellipsis" style="display: none;"></i> <br>
+                <i class="fa-regular fa-heart"></i>
+            </div>
+        </div>
+        `
+        commentContent.innerHTML += result;
+        commentContent.scrollTop = commentContent.scrollHeight;
+
+    }
+}
+function getMessages(blog) {
+    fetch('/socket')
+        .then(async (res) => {
+            let data = await res.json();
+            addMessage(data, blog);
+            // socket.emit('comment', data)
+        })
+}
+
 sendForm.addEventListener('submit', (e) => {
     let blog = +(sendForm.classList[1].slice(4));
     let user = +(sendForm.classList[2].slice(4));
@@ -103,7 +155,6 @@ sendForm.addEventListener('submit', (e) => {
         content: sendForm.content.value,
         like: 0
     }
-    console.log(data);
     fetch('/api/v1/comment', {
         method: 'POST',
         headers: {
@@ -114,8 +165,16 @@ sendForm.addEventListener('submit', (e) => {
         .then(async (res) => {
             let mes = await res.json();
             if (mes.message == 'Comment successfully') {
-                location.reload();
+                // getMessages(blog);
+                let firtComment = document.getElementById('firtComment');
+                if (firtComment) {
+                    firtComment.style.display = 'none';
+                }
+                sendForm.content.value = '';
             }
+        })
+        .catch((err) => {
+            alert(err);
         })
 })
 
@@ -174,5 +233,4 @@ btnClose.addEventListener('click', () => {
         window.location.href = `/profile/@${tiktokId}`;
     }
 })
-
-// commentContent.scrollTop = commentContent.scrollHeight;
+commentContent.scrollTop = commentContent.scrollHeight;

@@ -58,14 +58,14 @@
                     <% let flag=false; for(let j=0; j< allLike.length;j++) { if(allLike[j].user_id==user.user_id &&
                         allLike[j].blog_id==blog[i].blog_id) { flag=true; break; } } if(flag) { %>
                         <span style="color: crimson"
-                            class="btn-like like<%= user.user_id %> like<%= blog[i].blog_id %>"><i
+                            class="btn-like like<%= user.user_id %> liker<%= blog[i].blog_id %>"><i
                                 class="fa-solid fa-heart fa-2x"></i></span>
                         <% } else { %>
                             <span style="color: white"
-                                class="btn-like like<%= user.user_id %> like<%= blog[i].blog_id %>"><i
+                                class="btn-like like<%= user.user_id %> liker<%= blog[i].blog_id %>"><i
                                     class="fa-solid fa-heart fa-2x"></i></span>
                             <% } %>
-                                <span>
+                                <span class="like-point">
                                     <% if(like[1].indexOf(blog[i].blog_id)==-1) { %>
                                         0
                                         <% } else { for(let j=0; j< like[0].length; j++) {

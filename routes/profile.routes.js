@@ -11,7 +11,6 @@ router.get('/profile/@:TikTokID', isAuth, checkExitsLogin, async (req, res) => {
     let record = await getAllUser();
     let user = record.find(item => item.tiktok_id == req.params.TikTokID);
     let userCurrent = record.find(item => item.user_id == userId);
-    console.log(user);
     // Tất cả bài viết và tìm những bài viết của người dùng thứ id
     let blogAll = await getAllBlog();
     let blog = blogAll.reduce((arr, item) => {

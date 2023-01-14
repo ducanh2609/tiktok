@@ -71,14 +71,6 @@ function Follow() {
                 .then(async (res) => {
                     let mes = await res.json();
                     if (mes.message == 'Create successfully') {
-                        // for (let j = 0; j < btnFollow.length; j++) {
-                        //     if (btnFollow[i].classList[1].slice(4) == btnFollow[j].classList[1].slice(4)) {
-                        //         btnFollow[j].innerHTML = '<h4>Đang Follow</h4>'
-                        //         btnFollow[j].classList.add('cancel-follow');
-                        //         btnFollow[j].classList.remove('btn-follow');
-                        //     }
-                        // }
-                        // cancelFollow();
                         location.reload()
                     }
                 })
@@ -142,13 +134,15 @@ switchBar.addEventListener('change', () => {
 })
 
 let btnLike = document.getElementsByClassName('btn-like');
+let likePoint = document.getElementsByClassName('like-point');
 for (let i = 0; i < btnLike.length; i++) {
     btnLike[i].addEventListener('click', () => {
         if (btnLike[i].style.color == 'white' || btnLike[i].style.color == "") {
             btnLike[i].style.color = 'crimson';
+            console.log(btnLike[i].classList);
             let data = {
                 user_id: +(btnLike[i].classList[1].slice(4)),
-                blog_id: +(btnLike[i].classList[2].slice(4))
+                blog_id: +(btnLike[i].classList[2].slice(5))
             }
             fetch('/api/v1/like', {
                 method: 'POST',
@@ -160,14 +154,14 @@ for (let i = 0; i < btnLike.length; i++) {
                 .then(async (res) => {
                     let mes = await res.json();
                     if (mes.message == 'Like successfully') {
-                        location.reload()
+                        likePoint[i].innerText = +(likePoint[i].innerText) + 1;
                     }
                 })
         } else {
             btnLike[i].style.color = 'white';
             let data = {
                 user_id: +(btnLike[i].classList[1].slice(4)),
-                blog_id: +(btnLike[i].classList[2].slice(4))
+                blog_id: +(btnLike[i].classList[2].slice(5))
             }
             fetch('/api/v1/dislike', {
                 method: 'DELETE',
@@ -179,7 +173,7 @@ for (let i = 0; i < btnLike.length; i++) {
                 .then(async (res) => {
                     let mes = await res.json();
                     if (mes.message == 'Delete successfully') {
-                        location.reload()
+                        likePoint[i].innerText = +(likePoint[i].innerText) - 1;
                     }
                 })
         }
@@ -235,6 +229,18 @@ fetch('/api/v1/search')
         })
     })
 
-
-
+let userAcount = document.getElementsByClassName('user-acount');
+let username = document.getElementsByClassName('username');
+for (let i = 0; i < userAcount.length; i++) {
+    userAcount[i].addEventListener('click', () => {
+        window.location.href = `/profile/@${username[i].innerText}`;
+    })
+}
+message.addEventListener('click', () => {
+    if (messageBox.style.display == 'none' || messageBox.style.display == '') {
+        messageBox.style.display = 'block';
+    } else {
+        messageBox.style.display = 'none';
+    }
+})
 
