@@ -30,9 +30,7 @@ module.exports.getCountComment = async () => {
     let [record] = await findCountComment();
     return record;
 }
-module.exports.getSocket = async (req, res) => {
-    res.send(comment)
-}
+
 
 
 function converTimePart(param) {

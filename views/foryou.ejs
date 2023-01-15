@@ -35,7 +35,8 @@
                     </div>
                     <% } else if (user.follow.indexOf(blog[i].user_id) !=-1 && blog[i].username!=user.username){ %>
                         <div class="note-follow">
-                            <button class="user<%= user.user_id %> user<%= blog[i].user_id %> cancel-follow">
+                            <button class="user<%= user.user_id %> user<%= blog[i].user_id %> btn-follow"
+                                style="background-color: crimson !important;">
                                 <h4>Đang Follow</h4>
                             </button>
                         </div>
@@ -51,9 +52,14 @@
 
             </div>
             <div class="note-url">
-                <video width="350" height="550" controls autoplay muted loop>
-                    <source src="<%= blog[i].url %>" type="video/webm">
-                </video>
+                <div class="video">
+                    <video width="350" height="550" controls autoplay muted loop>
+                        <source src="<%= blog[i].url %>" type="video/webm">
+                    </video>
+                    <!-- <div class="blog-image">
+                        <img src="<%= blog[i].image_blog %>" alt="">
+                    </div> -->
+                </div>
                 <div class="contact">
                     <% let flag=false; for(let j=0; j< allLike.length;j++) { if(allLike[j].user_id==user.user_id &&
                         allLike[j].blog_id==blog[i].blog_id) { flag=true; break; } } if(flag) { %>

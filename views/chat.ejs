@@ -37,10 +37,10 @@
                             <i class="fa-solid fa-plus fa-lg"></i>
                             <h3>Tải lên</h3>
                         </a>
-                        <a href="/chat" class="chat-tool" id="chat">
+                        <a href="/chat/<%= user.tiktok_id %>" class="chat-tool" id="chat">
                             <i class="fa-regular fa-paper-plane fa-lg"></i>
                         </a>
-                        <a href="/message" class="message-tool" id="message">
+                        <a class="message-tool" id="message">
                             <i class="fa-regular fa-message fa-lg"></i>
                         </a>
                         <div class="user-profile-tool" id="profile">
@@ -101,6 +101,10 @@
     </div>
     <div class="content">
         <i class="fa-solid fa-arrow-left fa-lg"></i>
+
+
+
+
         <div class="message-content">
             <div class="message-left">
                 <div class="list-title">
@@ -108,21 +112,46 @@
                     <i class="fa-solid fa-gear fa-lg"></i>
                 </div>
                 <div class="list-user-chat">
-                    <div style="display: none;">Chưa có tin nhắn nào</div>
-                    <div class="username">
-                        <img src="/Image/anh-naruto-chibi-2.jpg" alt="">
-                        <div class="name">
-                            <h3>Đức Anh</h3>
+
+                    <% for(let i=0; i < allUsers.length; i++) { if(allUsers[i].user_id !=user.user_id) { %>
+                        <div class="username user<%= allUsers[i].user_id %>">
+                            <img src="<%= allUsers[i].image %>" alt="">
+                            <div class="name">
+                                <h3>
+                                    <%= allUsers[i].tiktok_id %>
+                                </h3>
+                            </div>
                         </div>
-                    </div>
+                        <% }} %>
                 </div>
             </div>
+
+
+
+
             <div class="message-right">
 
+                <div class="message-box user<%= user.user_id%>" id="messageBox">
+                    <div style="text-align: center;height: 60px;line-height: 60px;display: block; ">
+                        Chọn 1 người bạn để nhắn tin
+                    </div>
+                </div>
+                <form class="send-btn" id="sendForm" style="visibility: hidden;">
+                    <input type="text" name="inputMess" placeholder="Nhập tin nhắn">
+                    <button type="submit">Gửi</button>
+                </form>
             </div>
+
+
+
+
         </div>
     </div>
 </body>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"
+    integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI"
+    crossorigin="anonymous"></script>
+
 <script src="/chat.js"></script>
 
 </html>

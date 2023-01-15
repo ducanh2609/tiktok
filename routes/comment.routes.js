@@ -7,7 +7,7 @@ const { checkExitsUser, checkExitsLogin, isAuth } = require('../middlewares/midd
 
 
 
-router.get('/comment/:id/:content', isAuth, checkExitsLogin, async (req, res) => {
+router.get('/comment/:id/:content', checkExitsLogin, async (req, res) => {
     let { userId } = req.session;
     let record = await getAllUser();
     let user = record.find(item => item.user_id == userId);

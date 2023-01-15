@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUser, postBlog, getAllBlog, getOneFollow, getCountBlogLike, getBlogLike } = require('../controllers/controllers.js');
+const { getAllUser, postBlog, getAllBlog, getOneFollow, getCountBlogLike, getBlogLike, getChat } = require('../controllers/controllers.js');
 const { getCountComment } = require('../controllers/comment.controllers.js');
 const { checkExitsUser, checkExitsLogin, isAuth } = require('../middlewares/middlewares.js');
 // const jwt = require('jsonwebtoken');
@@ -56,14 +56,32 @@ router.get('/upfile', isAuth, checkExitsLogin, async (req, res) => {
     })
 })
 
-router.get('/chat', isAuth, checkExitsLogin, async (req, res) => {
+router.get('/chat/:tiktokID', isAuth, checkExitsLogin, async (req, res) => {
     let { userId } = req.session;
     let record = await getAllUser();
     let user = record.find(item => item.user_id == userId);
-    res.render('chat', {
-        user: user
-    })
+    if (user.tiktok_id == req.params.tiktokID) {
+        let follow = await getOneFollow(user.user_id);
+        user.follow = follow;
+        let record = await getAllUser();
+        let allFollowUser = record.reduce((arr, item) => {
+            if (follow.indexOf(item.user_id) != -1) {
+                arr.push(item)
+            }
+            return arr
+        }, []);
+        res.render('chat', {
+            user: user,
+            allFollowUser: allFollowUser,
+            allUsers: record
+        })
+    } else {
+        res.redirect('/')
+    }
 })
+
+router.get('/api/v1/chat/:id1/:id2', isAuth, checkExitsLogin, getChat)
+
 
 
 

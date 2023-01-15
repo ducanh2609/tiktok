@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { sessionStore } = require('./utils/db.js')
 
-const { postComment, getSocket } = require('./controllers/comment.controllers.js');
+const { postComment } = require('./controllers/comment.controllers.js');
+const { postChat } = require('./controllers/controllers.js');
 
 
 var upload = multer();
@@ -67,13 +68,24 @@ const profileRouters = require("./routes/profile.routes.js");
 app.use('/', profileRouters);
 
 
-app.get('/socket', getSocket);
+// app.get('/socket', getSocket);
 app.post('/api/v1/comment', async (req, res) => {
     let comment = await postComment(req, res);
     // console.log(comment);
     io.sockets.emit('comment', comment);
     res.json({ message: 'Comment successfully' })
 })
+
+app.post('/api/v1/chat', async (req, res) => {
+    let chat = await postChat(req, res);
+    io.sockets.emit('chat', chat);
+    res.json({ message: 'Chat successfully' })
+})
+
+
+
+
+
 
 
 http.listen(3000);

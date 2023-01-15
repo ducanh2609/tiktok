@@ -12,7 +12,7 @@ module.exports.postUserSQL = (arr) => {
 }
 
 module.exports.findAllBlog = () => {
-    let sql = `SELECT t1.blog_id, t1.user_id, t1.url, t1.status, t1.time, t2.username, t3.name, t3.image, t3.tiktok_id
+    let sql = `SELECT t1.blog_id, t1.user_id, t1.url,t1.image_blog, t1.status, t1.time, t2.username, t3.name, t3.image, t3.tiktok_id
     FROM blogs AS t1, users AS t2, user_profile as t3
     WHERE t1.user_id = t2.user_id AND t2.user_id = t3.user_id` ;
     return db.execute(sql)
@@ -49,4 +49,23 @@ module.exports.findBlogLike = () => {
     let sql = `SELECT * FROM tb_like`;
     return db.execute(sql)
 }
-
+module.exports.findChat = (id1, id2) => {
+    if (!id1 && !id2) {
+        let sql = `SELECT * FROM chat`;
+        return db.execute(sql)
+    } else {
+        let sql = `SELECT * FROM chat  WHERE userchat_id = ?
+        UNION
+        SELECT * FROM chat  WHERE userchat_id = ?
+        ORDER BY time`;
+        return db.execute(sql, [id1, id2])
+    }
+}
+module.exports.findImageUserChat = (id1, id2) => {
+    let sql = `SELECT t1.user_id, t1.image FROM user_profile AS t1  WHERE t1.user_id = ? OR t1.user_id = ?`;
+    return db.execute(sql, [id1, id2])
+}
+module.exports.postChatSQL = (arr) => {
+    let sql = `INSERT INTO chat VALUES(?,?,?,?,default)`;
+    return db.query(sql, arr)
+}

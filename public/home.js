@@ -51,16 +51,21 @@ if (backFollow) {
         allFollow.style.display = 'block';
     })
 }
-function Follow() {
-    let btnFollow = document.getElementsByClassName('btn-follow');
-    for (let i = 0; i < btnFollow.length; i++) {
-        btnFollow[i].addEventListener('click', () => {
-            let userFollow = btnFollow[i].classList[0].slice(4);
-            let userFollower = btnFollow[i].classList[1].slice(4);
-            let data = {
-                follow: userFollow,
-                follower: userFollower
-            }
+
+
+let btnFollow = document.getElementsByClassName('btn-follow');
+for (let i = 0; i < btnFollow.length; i++) {
+    follow(btnFollow[i], btnFollow)
+}
+function follow(follow, allFollowElement) {
+    follow.addEventListener('click', () => {
+        let userFollow = follow.classList[0].slice(4);
+        let userFollower = follow.classList[1].slice(4);
+        let data = {
+            follow: userFollow,
+            follower: userFollower
+        }
+        if (follow.style['background-color'] == 'rgb(24, 26, 27)') {
             fetch('/api/v1/follow', {
                 method: 'POST',
                 headers: {
@@ -71,27 +76,18 @@ function Follow() {
                 .then(async (res) => {
                     let mes = await res.json();
                     if (mes.message == 'Create successfully') {
-                        location.reload()
+                        for (let i = 0; i < allFollowElement.length; i++) {
+                            if (allFollowElement[i].classList[1].slice(4) == userFollower) {
+                                allFollowElement[i].style['background-color'] = 'crimson'
+                                allFollowElement[i].innerHTML = ` <h4>Đang Follow</h4>`
+                            }
+                        }
                     }
                 })
                 .catch((err) => {
                     alert(err);
                 })
-
-        })
-    }
-}
-
-function cancelFollow() {
-    let cancelFollow = document.getElementsByClassName('cancel-follow');
-    for (let i = 0; i < cancelFollow.length; i++) {
-        cancelFollow[i].addEventListener('click', () => {
-            let userFollow = cancelFollow[i].classList[0].slice(4);
-            let userFollower = cancelFollow[i].classList[1].slice(4);
-            let data = {
-                follow: userFollow,
-                follower: userFollower
-            }
+        } else {
             fetch(`/api/v1/follow/${userFollow}`, {
                 method: 'DELETE',
                 headers: {
@@ -102,26 +98,23 @@ function cancelFollow() {
                 .then(async (res) => {
                     let mes = await res.json();
                     if (mes.message == 'Delete successfully') {
-                        // for (let j = 0; j < cancelFollow.length; j++) {
-                        //     if (cancelFollow[i].classList[1].slice(4) == cancelFollow[j].classList[1].slice(4)) {
-                        //         cancelFollow[j].innerHTML = '<h4>Follow</h4>'
-                        //         cancelFollow[j].classList.add('btn-follow');
-                        //         cancelFollow[j].classList.remove('cancel-follow');
-                        //     }
-                        // }
-                        // Follow()
-                        location.reload()
+                        for (let i = 0; i < allFollowElement.length; i++) {
+                            if (allFollowElement[i].classList[1].slice(4) == userFollower) {
+                                allFollowElement[i].style['background-color'] = 'rgb(24, 26, 27)'
+                                allFollowElement[i].innerHTML = ` <h4>Follow</h4>`
+                            }
+                        }
                     }
                 })
                 .catch((err) => {
                     alert(err);
                 })
-        })
-    }
-}
-Follow();
-cancelFollow();
+        }
 
+    })
+}
+
+// Đổi màu nền
 let body = document.querySelector('body');
 switchBar.addEventListener('change', () => {
     if (body.style['background-color'] == 'rgb(24, 26, 27)' || body.style['background-color'] == '') {
@@ -133,6 +126,9 @@ switchBar.addEventListener('change', () => {
     }
 })
 
+
+
+// Like
 let btnLike = document.getElementsByClassName('btn-like');
 let likePoint = document.getElementsByClassName('like-point');
 for (let i = 0; i < btnLike.length; i++) {
@@ -180,6 +176,8 @@ for (let i = 0; i < btnLike.length; i++) {
     })
 }
 
+
+// Đăng xuất
 logout.addEventListener('click', () => {
     fetch('/api/v1/logout')
         .then(async (res) => {
@@ -190,7 +188,7 @@ logout.addEventListener('click', () => {
         })
 })
 
-
+// Search
 fetch('/api/v1/search')
     .then(async (res) => {
         let userList = await res.json();
@@ -236,6 +234,8 @@ for (let i = 0; i < userAcount.length; i++) {
         window.location.href = `/profile/@${username[i].innerText}`;
     })
 }
+
+// HIện thông báo
 message.addEventListener('click', () => {
     if (messageBox.style.display == 'none' || messageBox.style.display == '') {
         messageBox.style.display = 'block';

@@ -285,14 +285,8 @@ body {
   /* border: 1px solid blue; */
   box-sizing: border-box;
 }
-.message-right {
-  background-color: rgb(24, 26, 27);
-  border-radius: 10px;
-  width: 52%;
-  /* border: 1px solid blue; */
-  box-sizing: border-box;
-  margin-left: 16px;
-}
+
+/* message-left */
 .list-title {
   position: relative;
   display: flex;
@@ -313,14 +307,123 @@ body {
 }
 .username {
   display: flex;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
 .username img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+.username:hover {
+  background-color: rgb(70, 69, 69);
+  cursor: pointer;
+}
 .name {
   height: 50px;
   margin: 0px 10px;
   line-height: 50px;
+}
+
+/* message-right */
+.message-right {
+  position: relative;
+  background-color: rgb(24, 26, 27);
+  border-radius: 10px;
+  width: 52%;
+  /* border: 1px solid blue; */
+  box-sizing: border-box;
+  margin-left: 16px;
+}
+.message-box {
+  /* border: 1px solid red; */
+  height: calc(100% - 80px);
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: rgb(53, 52, 52);
+  overflow: auto;
+  /* display: none; */
+}
+.message-box::-webkit-scrollbar {
+  width: 8px;
+}
+.message-box::-webkit-scrollbar-thumb {
+    background-color: #ad691a;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    position: 30%;
+  }
+  .message-box::-webkit-scrollbar-track {
+    background: none;
+  }
+
+
+.send-btn {
+  height: 60px;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(34, 34, 34);
+  display: flex;
+  box-sizing: border-box;
+}
+
+.send-btn input {
+  height: 100%;
+  width: 88%;
+  margin-right: 2%;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  outline: none;
+  background-color: rgb(48, 47, 47);
+  padding: 0 10px;
+}
+.send-btn button {
+  height: 100%;
+  width: 10%;
+  border-radius: 10px;
+  background-color: crimson;
+  border: none;
+  color: white;
+}
+.send-btn button:hover {
+  cursor: pointer;
+}
+.message-point {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+.message-point img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+.message-point > div {
+  max-width: 50%;
+  padding-top: 10px;
+  line-height: 30px;
+  word-wrap: break-word;
+  word-break: break-all;
+  background-color: rgb(123, 69, 40);
+  padding: 10px 10px 10px;
+  border-radius: 5px;
+}
+.user-send {
+  justify-content: right !important;
+}
+.user-send > div {
+  background-color: rgb(113, 126, 115) !important;
+}
+.time {
+  height: 15px;
+  font-size: 10px;
+  color: rgb(177, 175, 175);
 }

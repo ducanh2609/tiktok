@@ -139,8 +139,7 @@ form {
   width: 280px;
   margin-right: 12px;
 }
-.follow,
-.cancel-follow {
+.follow {
   margin-top: 8px;
   padding: 6px 8px;
   border: 1px solid red;
@@ -150,8 +149,7 @@ form {
   border-radius: 5px;
   color: white;
 }
-.follow:hover,
-.cancel-follow:hover {
+.follow:hover {
   cursor: pointer;
   background-color: rgb(254, 44, 85);
 }

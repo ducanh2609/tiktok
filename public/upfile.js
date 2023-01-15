@@ -271,3 +271,12 @@ logout.addEventListener('click', () => {
             }
         })
 })
+
+// HIện thông báo
+message.addEventListener('click', () => {
+    if (messageBox.style.display == 'none' || messageBox.style.display == '') {
+        messageBox.style.display = 'block';
+    } else {
+        messageBox.style.display = 'none';
+    }
+})

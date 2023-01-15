@@ -10,7 +10,7 @@ let btnChange = document.getElementById('btnChange');
 let cancel = document.getElementById('cancel');
 let btnSave = document.getElementById('btnSave');
 
-if (btnChange && cancel && btnSave) {
+if (btnChange) {
     btnChange.addEventListener('click', () => {
         changeMotal.style.display = 'block';
         changeBackground.style.display = 'block';
@@ -183,3 +183,12 @@ fetch('/api/v1/search')
             }
         })
     })
+
+// Hiện thông báo
+message.addEventListener('click', () => {
+    if (messageBox.style.display == 'none' || messageBox.style.display == '') {
+        messageBox.style.display = 'block';
+    } else {
+        messageBox.style.display = 'none';
+    }
+})

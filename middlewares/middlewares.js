@@ -55,15 +55,30 @@ module.exports.isAuth = async (req, res, next) => {
         return arr
     }, [])
     let totalComment = await getCountComment();
-    if (userId) next()
-    else res.render('home', {
-        user: { username: undefined, follow: [] },
-        allUsers: record,
-        blog: blog,
-        allLike: blogLike,
-        like: [countLike, countValue],
-        totalComment: totalComment
-    })
+    if (userId) {
+        if (req.params.id) {
+            if (userId == req.params.id) next()
+            else {
+                res.render('home', {
+                    user: { username: undefined, follow: [] },
+                    allUsers: record,
+                    blog: blog,
+                    allLike: blogLike,
+                    like: [countLike, countValue],
+                    totalComment: totalComment
+                })
+            }
+        } else next()
+    } else {
+        res.render('home', {
+            user: { username: undefined, follow: [] },
+            allUsers: record,
+            blog: blog,
+            allLike: blogLike,
+            like: [countLike, countValue],
+            totalComment: totalComment
+        })
+    }
 }
 
 module.exports.isAdmin = async (req, res, next) => {
